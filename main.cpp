@@ -4,20 +4,26 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include "FormaFactory.h"
+
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
 
-    QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages) {
-        const QString baseName = "computer-graphics_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
-            a.installTranslator(&translator);
-            break;
-        }
-    }
+    // Registrar formas
+    FormaFactory::instance().registrar("Ponto", [](int x, int y, int tamanho, const QColor& cor) {
+        return new Ponto(x, y, tamanho, cor);
+    });
+
+    /*
+    FormaFactory::instance().registrar("Reta", [](int x, int y, const QColor& cor) {
+        return new Reta(x, y, x + 50, y + 50, cor);  // exemplo de reta
+    });
+
+    */
+
     MainWindow w;
     w.show();
-    return a.exec();
+
+    return app.exec();
 }
