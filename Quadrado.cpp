@@ -11,4 +11,12 @@ void Quadrado::desenhar(QPainter& painter) const {
     painter.drawLine(p2.getX(), p1.getY(), p1.getX(), p1.getY()); // lado superior
 }
 
-
+QString Quadrado::toString() const {
+    return QString("Quadrado: P1(%1, %2), P2(%3, %4), Tamanho: %5, Cor: %6")
+    .arg(p1.getX())
+        .arg(p1.getY())
+        .arg(p2.getX())
+        .arg(p2.getY())
+        .arg(tamanho)
+        .arg(cor.name());
+}
