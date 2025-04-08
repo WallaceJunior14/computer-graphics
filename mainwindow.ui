@@ -33,15 +33,15 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>22</x>
-      <y>32</y>
-      <width>107</width>
-      <height>318</height>
+      <x>20</x>
+      <y>33</y>
+      <width>108</width>
+      <height>444</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="lblForma">
        <property name="text">
         <string>Forma:</string>
        </property>
@@ -51,28 +51,56 @@
       <widget class="QComboBox" name="comboFormas"/>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="lblCoordenadaX1">
        <property name="text">
-        <string>Coordenada X:</string>
+        <string>Coordenada X1:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinX">
+      <widget class="QSpinBox" name="spinX1">
        <property name="maximum">
         <number>500</number>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="lblCoordenadaY1">
        <property name="text">
-        <string>Coodernada Y:</string>
+        <string>Coodernada Y1:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinY">
+      <widget class="QSpinBox" name="spinY1">
+       <property name="maximum">
+        <number>500</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lblCoordenadaX2">
+       <property name="text">
+        <string>Coordenada X2:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinX2">
+       <property name="maximum">
+        <number>500</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lblCoordenadaY2">
+       <property name="text">
+        <string>Coodernada Y2:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinY2">
        <property name="maximum">
         <number>500</number>
        </property>

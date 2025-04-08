@@ -7,34 +7,51 @@
 #include <functional>
 #include <memory>
 #include "Ponto.h"
-// inclua outras formas aqui
+#include "Reta.h"
 
 class FormaFactory {
 public:
-    using CriadorForma = std::function<ObjetoGrafico*(int x, int y, int tamanho, const QColor&)>;
+    using CriadorFormaSimples = std::function<ObjetoGrafico*(int x, int y, int tamanho, const QColor&)>;
+    using CriadorFormaComplexa = std::function<ObjetoGrafico*(int x1, int y1, int x2, int y2, int tamanho, const QColor&)>;
 
     static FormaFactory& instance() {
         static FormaFactory inst;
         return inst;
     }
 
-    void registrar(const QString& nome, CriadorForma criador) {
-        formas[nome] = criador;
+    void registrarSimples(const QString& nome, CriadorFormaSimples criador) {
+        formasSimples[nome] = criador;
+    }
+
+    void registrarComplexa(const QString& nome, CriadorFormaComplexa criador) {
+        formasComplexas[nome] = criador;
     }
 
     QStringList nomesFormas() const {
-        return formas.keys();
+        QStringList nomes = formasSimples.keys();
+        nomes.append(formasComplexas.keys());
+        return nomes;
     }
 
+    // Para formas simples
     ObjetoGrafico* criar(const QString& nome, int x, int y, int tamanho, const QColor& cor) {
-        if (formas.contains(nome)) {
-            return formas[nome](x, y, tamanho, cor);
+        if (formasSimples.contains(nome)) {
+            return formasSimples[nome](x, y, tamanho, cor);
+        }
+        return nullptr;
+    }
+
+    // Para formas complexas
+    ObjetoGrafico* criar(const QString& nome, int x1, int y1, int x2, int y2, int tamanho, const QColor& cor) {
+        if (formasComplexas.contains(nome)) {
+            return formasComplexas[nome](x1, y1, x2, y2, tamanho, cor);
         }
         return nullptr;
     }
 
 private:
-    QMap<QString, CriadorForma> formas;
+    QMap<QString, CriadorFormaSimples> formasSimples;
+    QMap<QString, CriadorFormaComplexa> formasComplexas;
 };
 
 #endif // FORMAFACTORY_H

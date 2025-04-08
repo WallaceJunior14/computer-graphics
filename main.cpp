@@ -11,16 +11,16 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     // Registrar formas
-    FormaFactory::instance().registrar("Ponto", [](int x, int y, int tamanho, const QColor& cor) {
+    FormaFactory::instance().registrarSimples("Ponto", [](int x, int y, int tamanho, const QColor& cor) {
         return new Ponto(x, y, tamanho, cor);
     });
 
-    /*
-    FormaFactory::instance().registrar("Reta", [](int x, int y, const QColor& cor) {
-        return new Reta(x, y, x + 50, y + 50, cor);  // exemplo de reta
+    FormaFactory::instance().registrarComplexa("Reta", [](int x1, int y1, int x2, int y2, int tamanho, const QColor& cor) {
+        Ponto p1(x1, y1, tamanho, cor);
+        Ponto p2(x2, y2, tamanho, cor);
+        return new Reta(p1, p2, tamanho, cor);
     });
 
-    */
 
     MainWindow w;
     w.show();

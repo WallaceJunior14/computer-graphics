@@ -13,6 +13,7 @@ SOURCES += \
     ObjetoGrafico.cpp \
     Ponto.cpp \
     RepositorioObjetos.cpp \
+    Reta.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -22,6 +23,7 @@ HEADERS += \
     ObjetoGrafico.h \
     Ponto.h \
     RepositorioObjetos.h \
+    Reta.h \
     mainwindow.h
 
 FORMS += \
