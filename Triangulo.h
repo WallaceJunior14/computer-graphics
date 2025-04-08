@@ -8,8 +8,12 @@
 class Triangulo : public ObjetoGrafico {
 public:
     Triangulo(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, int tamanho, const QColor& cor);
+
     void desenhar(QPainter& painter) const override;
+
     ~Triangulo() override = default;
+
+    QString toString() const override;
 
 private:
     const Ponto p1;
