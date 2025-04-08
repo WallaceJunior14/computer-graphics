@@ -9,6 +9,7 @@
 #include "Ponto.h"
 #include "Reta.h"
 #include "Triangulo.h"
+#include "Quadrado.h"
 
 class FormaFactory {
 public:
