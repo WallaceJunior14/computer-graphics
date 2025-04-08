@@ -20,6 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList formas = FormaFactory::instance().nomesFormas();
     ui->comboFormas->addItems(formas);
 
+    // Ocultar campos de coordenadas com base na forma
+    QString forma = ui->comboFormas->itemText(0);
+    atualizarCamposForma(forma);
+
     // Conectar manualmente (caso não tenha feito via Qt Designer -> Sinais/Slots)
     connect(ui->btnDesenhar, &QPushButton::clicked, this, &MainWindow::on_btnDesenhar_clicked);
     connect(ui->comboFormas, &QComboBox::currentTextChanged,
@@ -62,6 +66,7 @@ void MainWindow::on_btnDesenhar_clicked() {
         repositorio.adicionar(std::unique_ptr<ObjetoGrafico>{objeto});
         ui->frameDesenho->setRepositorio(&repositorio);
         ui->frameDesenho->update();
+
     } else {
         QMessageBox::warning(this, "Erro", "Forma não reconhecida: " + forma);
     }
@@ -80,45 +85,47 @@ void MainWindow::atualizarCamposForma(const QString& formaSelecionada) {
     qDebug() << formaSelecionada;
 
     // Esconder todos inicialmente
-    ui->spinX1->hide();
-    ui->spinY1->hide();
     ui->spinX2->hide();
     ui->spinY2->hide();
     ui->spinX3->hide();
     ui->spinY3->hide();
 
-    if (formaSelecionada == "Ponto") {
-        ui->spinX1->show();
-        ui->spinY1->show();
-    } else if (formaSelecionada == "Reta") {
-        ui->spinX1->show();
-        ui->spinY1->show();
+    ui->lblCoordenadaX2->hide();
+    ui->lblCoordenadaY2->hide();
+    ui->lblCoordenadaX3->hide();
+    ui->lblCoordenadaY3->hide();
+
+    if (formaSelecionada == "Reta") {
         ui->spinX2->show();
         ui->spinY2->show();
+
+        ui->lblCoordenadaX2->show();
+        ui->lblCoordenadaY2->show();
     } else if (formaSelecionada == "Triangulo"){
-        ui->spinX1->show();
-        ui->spinY1->show();
         ui->spinX2->show();
         ui->spinY2->show();
         ui->spinX3->show();
         ui->spinY3->show();
+
+        ui->lblCoordenadaX2->show();
+        ui->lblCoordenadaY2->show();
+        ui->lblCoordenadaX3->show();
+        ui->lblCoordenadaY3->show();
     }
 }
 
-void MainWindow::on_spinX1_textChanged(const QString &arg1) {
-
-}
-
-void MainWindow::on_spinX2_textChanged(const QString &arg1) {
-
-}
 
 void MainWindow::on_comboFormas_activated(int index) {
     atualizarCamposForma(ui->comboFormas->itemText(index));
 }
 
 
+void MainWindow::on_btnMostrar_clicked()
+{
+    const auto& formas = repositorio.obterTodos();
 
-
-
+    for (const auto& forma : formas) {
+        qDebug() << forma->toString(); // supondo que ObjetoGrafico tem um método toString()
+    }
+}
 

@@ -7,3 +7,8 @@ void Reta::desenhar(QPainter& painter) const {
     painter.setPen(QPen(cor, tamanho));
     painter.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
 }
+
+QString Reta::toString() const {
+    return QString("Reta((%1, %2) -> (%3, %4), tamanho: %5, cor: %6)")
+    .arg(p1.getX()).arg(p1.getY()).arg(p2.getX()).arg(p2.getY()).arg(tamanho).arg(cor.name());
+}

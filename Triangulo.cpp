@@ -10,3 +10,7 @@ void Triangulo::desenhar(QPainter& painter) const {
     painter.drawLine(p3.getX(), p3.getY(), p1.getX(), p1.getY());
 }
 
+QString Triangulo::toString() const {
+    return QString("Triangulo((%1, %2), (%3, %4), (%5, %6), tamanho: %7, cor: %8)")
+    .arg(p1.getX()).arg(p1.getY()).arg(p2.getX()).arg(p2.getY()).arg(p3.getX()).arg(p3.getY()).arg(tamanho).arg(cor.name());
+}

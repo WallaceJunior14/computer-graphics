@@ -10,6 +10,8 @@ public:
 
     void desenhar(QPainter& painter) const override;
 
+    QString toString() const override;
+
     // Getters públicos (se for necessário acessar em Reta, por exemplo)
     int getX() const { return x; }
     int getY() const { return y; }

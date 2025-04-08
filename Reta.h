@@ -8,7 +8,10 @@
 class Reta : public ObjetoGrafico {
 public:
     Reta(const Ponto& ponto1, const Ponto& ponto2, int tamanho, const QColor& cor);
+
     void desenhar(QPainter& painter) const override;
+
+    QString toString() const override;
 
 private:
     Ponto p1;
