@@ -27,6 +27,12 @@ int main(int argc, char *argv[])
         return new Triangulo(p1, p2, p3, tamanho, cor);
     });
 
+    FormaFactory::instance().registrarComplexa("Quadrado", [](int x1, int y1, int x2, int y2, int tamanho, const QColor& cor) {
+        Ponto p1(x1, y1, tamanho, cor);
+        Ponto p2(x2, y2, tamanho, cor);
+        return new Quadrado(p1, p2, tamanho, cor);
+    });
+
 
     MainWindow w;
     w.show();

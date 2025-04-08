@@ -12,6 +12,7 @@ SOURCES += \
     FrameDesenho.cpp \
     ObjetoGrafico.cpp \
     Ponto.cpp \
+    Quadrado.cpp \
     RepositorioObjetos.cpp \
     Reta.cpp \
     Triangulo.cpp \
@@ -23,6 +24,7 @@ HEADERS += \
     FrameDesenho.h \
     ObjetoGrafico.h \
     Ponto.h \
+    Quadrado.h \
     RepositorioObjetos.h \
     Reta.h \
     Triangulo.h \
