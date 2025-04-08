@@ -23,20 +23,20 @@
       <height>511</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
+    <property name="autoFillBackground">
+     <bool>true</bool>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>33</y>
-      <width>108</width>
-      <height>444</height>
+      <width>113</width>
+      <height>515</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -107,6 +107,40 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="lblCoordenadaX3">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Coordenada X3:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinX3">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lblCoordenadaY3">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Coordenada Y3:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinY3">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Tamanho:</string>
@@ -139,7 +173,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

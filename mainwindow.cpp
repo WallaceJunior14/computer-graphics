@@ -43,6 +43,8 @@ void MainWindow::on_btnDesenhar_clicked() {
     int y1 = ui->spinY1->value();
     int x2 = ui->spinX2->value();
     int y2 = ui->spinY2->value();
+    int x3 = ui->spinX3->value();
+    int y3 = ui->spinY3->value();
     int tamanho = ui->spinTamanho->value();
 
     // Criar objeto com base na forma selecionada
@@ -52,6 +54,8 @@ void MainWindow::on_btnDesenhar_clicked() {
         objeto = FormaFactory::instance().criar(forma, x1, y1, tamanho, corSelecionada);
     } else if (forma == "Reta"){
         objeto = FormaFactory::instance().criar(forma, x1, y1, x2, y2, tamanho, corSelecionada);
+    } else if (forma == "Triangulo"){
+        objeto = FormaFactory::instance().criar(forma, x1, y1, x2, y2, x3, y3, tamanho, corSelecionada);
     }
 
     if (objeto) {
@@ -63,7 +67,6 @@ void MainWindow::on_btnDesenhar_clicked() {
     }
 }
 
-
 void MainWindow::on_btnCor_clicked() {
     QColor novaCor = QColorDialog::getColor(Qt::black, this, "Escolher Cor");
 
@@ -73,17 +76,16 @@ void MainWindow::on_btnCor_clicked() {
     }
 }
 
-
 void MainWindow::atualizarCamposForma(const QString& formaSelecionada) {
     qDebug() << formaSelecionada;
 
     // Esconder todos inicialmente
     ui->spinX1->hide();
     ui->spinY1->hide();
-    ui->spinX1->hide();
-    ui->spinY1->hide();
     ui->spinX2->hide();
     ui->spinY2->hide();
+    ui->spinX3->hide();
+    ui->spinY3->hide();
 
     if (formaSelecionada == "Ponto") {
         ui->spinX1->show();
@@ -93,7 +95,30 @@ void MainWindow::atualizarCamposForma(const QString& formaSelecionada) {
         ui->spinY1->show();
         ui->spinX2->show();
         ui->spinY2->show();
+    } else if (formaSelecionada == "Triangulo"){
+        ui->spinX1->show();
+        ui->spinY1->show();
+        ui->spinX2->show();
+        ui->spinY2->show();
+        ui->spinX3->show();
+        ui->spinY3->show();
     }
 }
+
+void MainWindow::on_spinX1_textChanged(const QString &arg1) {
+
+}
+
+void MainWindow::on_spinX2_textChanged(const QString &arg1) {
+
+}
+
+void MainWindow::on_comboFormas_activated(int index) {
+    atualizarCamposForma(ui->comboFormas->itemText(index));
+}
+
+
+
+
 
 

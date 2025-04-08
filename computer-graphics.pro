@@ -14,6 +14,7 @@ SOURCES += \
     Ponto.cpp \
     RepositorioObjetos.cpp \
     Reta.cpp \
+    Triangulo.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
     Ponto.h \
     RepositorioObjetos.h \
     Reta.h \
+    Triangulo.h \
     mainwindow.h
 
 FORMS += \

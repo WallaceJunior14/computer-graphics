@@ -24,6 +24,12 @@ private slots:
 
     void atualizarCamposForma(const QString& formaSelecionada);
 
+    void on_spinX2_textChanged(const QString &arg1);
+
+    void on_comboFormas_activated(int index);
+
+    void on_spinX1_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     QColor corSelecionada;
