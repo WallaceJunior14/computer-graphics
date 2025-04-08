@@ -22,6 +22,8 @@ private slots:
     void on_btnDesenhar_clicked();
     void on_btnCor_clicked();
 
+    void atualizarCamposForma(const QString& formaSelecionada);
+
 private:
     Ui::MainWindow *ui;
     QColor corSelecionada;
