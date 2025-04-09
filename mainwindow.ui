@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>827</width>
-    <height>720</height>
+    <height>715</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
       <x>20</x>
       <y>10</y>
       <width>113</width>
-      <height>606</height>
+      <height>642</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -171,6 +171,13 @@
       <widget class="QPushButton" name="btnDesenhar">
        <property name="text">
         <string>Adicionar</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnExcluirForma">
+       <property name="text">
+        <string>Excluir</string>
        </property>
       </widget>
      </item>

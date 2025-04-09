@@ -28,6 +28,8 @@ private slots:
 
     void on_cbDisplayFile_currentIndexChanged(int index);
 
+    void on_btnExcluirForma_clicked();
+
 private:
     Ui::MainWindow *ui;
     QColor corSelecionada;

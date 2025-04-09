@@ -93,6 +93,9 @@ void MainWindow::on_btnMostrar_clicked() {
 }
 
 void MainWindow::atualizarCamposForma(const QString& formaSelecionada) {
+    // Oculta botão de excluir
+    ui->btnExcluirForma->hide();
+
     static const QList<QWidget*> campos2 = {
         ui->spinX2, ui->spinY2, ui->lblCoordenadaX2, ui->lblCoordenadaY2
     };
@@ -157,5 +160,19 @@ void MainWindow::on_cbDisplayFile_currentIndexChanged(int index)
     corSelecionada = forma->getCor();
 
     indiceSelecionado = index;
+
+    // Ativa botão de excluir
+    ui->btnExcluirForma->show();
+}
+
+
+void MainWindow::on_btnExcluirForma_clicked()
+{
+    if (indiceSelecionado != -1) {
+        repositorio.remover(indiceSelecionado);
+        indiceSelecionado = -1;
+        atualizarCBDisplayFile();
+        ui->frameDesenho->update();
+    }
 }
 
