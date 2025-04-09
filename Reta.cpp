@@ -12,3 +12,7 @@ QString Reta::toString() const {
     return QString("Reta((%1, %2) -> (%3, %4), tamanho: %5, cor: %6)")
     .arg(p1.getX()).arg(p1.getY()).arg(p2.getX()).arg(p2.getY()).arg(tamanho).arg(cor.name());
 }
+
+int Reta::getTamanho() const {
+    return tamanho;
+}

@@ -20,3 +20,7 @@ QString Quadrado::toString() const {
         .arg(tamanho)
         .arg(cor.name());
 }
+
+int Quadrado::getTamanho() const {
+    return tamanho;
+}

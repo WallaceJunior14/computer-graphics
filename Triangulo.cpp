@@ -14,3 +14,7 @@ QString Triangulo::toString() const {
     return QString("Triangulo((%1, %2), (%3, %4), (%5, %6), tamanho: %7, cor: %8)")
     .arg(p1.getX()).arg(p1.getY()).arg(p2.getX()).arg(p2.getY()).arg(p3.getX()).arg(p3.getY()).arg(tamanho).arg(cor.name());
 }
+
+int Triangulo::getTamanho() const {
+    return tamanho;
+}

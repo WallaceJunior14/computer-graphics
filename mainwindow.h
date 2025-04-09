@@ -24,14 +24,16 @@ private slots:
 
     void atualizarCamposForma(const QString& formaSelecionada);
 
-    void on_comboFormas_activated(int index);
-
     void on_btnMostrar_clicked();
+
+    void on_cbDisplayFile_currentIndexChanged(int index);
 
 private:
     Ui::MainWindow *ui;
     QColor corSelecionada;
+    int indiceSelecionado;
     RepositorioObjetos repositorio;
+    void atualizarCBDisplayFile();
 };
 
 #endif // MAINWINDOW_H

@@ -13,9 +13,13 @@ public:
 
     QString toString() const override;
 
+    // setters e getters
+    Ponto getP1() const { return p1; }
+    Ponto getP2() const { return p2; }
+    int getTamanho() const override;
+
 private:
-    Ponto p1;
-    Ponto p2;
+    Ponto p1, p2;
     int tamanho;
     QColor cor;
 };

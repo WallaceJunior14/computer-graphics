@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>30</y>
+      <y>10</y>
       <width>621</width>
-      <height>511</height>
+      <height>600</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -34,9 +34,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>33</y>
+      <y>10</y>
       <width>113</width>
-      <height>570</height>
+      <height>606</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -60,7 +60,7 @@
      <item>
       <widget class="QSpinBox" name="spinX1">
        <property name="maximum">
-        <number>500</number>
+        <number>600</number>
        </property>
       </widget>
      </item>
@@ -74,7 +74,7 @@
      <item>
       <widget class="QSpinBox" name="spinY1">
        <property name="maximum">
-        <number>500</number>
+        <number>600</number>
        </property>
       </widget>
      </item>
@@ -88,7 +88,7 @@
      <item>
       <widget class="QSpinBox" name="spinX2">
        <property name="maximum">
-        <number>500</number>
+        <number>600</number>
        </property>
       </widget>
      </item>
@@ -102,7 +102,7 @@
      <item>
       <widget class="QSpinBox" name="spinY2">
        <property name="maximum">
-        <number>500</number>
+        <number>600</number>
        </property>
       </widget>
      </item>
@@ -121,6 +121,9 @@
        <property name="enabled">
         <bool>true</bool>
        </property>
+       <property name="maximum">
+        <number>600</number>
+       </property>
       </widget>
      </item>
      <item>
@@ -138,6 +141,9 @@
        <property name="enabled">
         <bool>true</bool>
        </property>
+       <property name="maximum">
+        <number>600</number>
+       </property>
       </widget>
      </item>
      <item>
@@ -148,7 +154,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinTamanho"/>
+      <widget class="QSpinBox" name="spinTamanho">
+       <property name="maximum">
+        <number>15</number>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnCor">
@@ -164,19 +174,23 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="btnMostrar">
+       <property name="text">
+        <string>Mostrar</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="btnMostrar">
+   <widget class="QComboBox" name="cbDisplayFile">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>610</y>
-      <width>111</width>
-      <height>29</height>
+      <x>160</x>
+      <y>630</y>
+      <width>621</width>
+      <height>28</height>
      </rect>
-    </property>
-    <property name="text">
-     <string>Mostrar</string>
     </property>
    </widget>
   </widget>

@@ -15,6 +15,12 @@ public:
 
     QString toString() const override;
 
+    // Setters e Getters
+    Ponto getP1() const { return p1; }
+    Ponto getP2() const { return p2; }
+    Ponto getP3() const { return p3; }
+    int getTamanho() const override;
+
 private:
     const Ponto p1;
     const Ponto p2;
