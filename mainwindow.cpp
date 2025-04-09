@@ -184,7 +184,6 @@ void MainWindow::on_cbDisplayFile_currentIndexChanged(int index)
     ui->btnExcluirForma->show();
 }
 
-
 void MainWindow::on_btnExcluirForma_clicked()
 {
     if (indiceSelecionado != -1) {

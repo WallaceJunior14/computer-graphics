@@ -13,8 +13,8 @@ void FrameDesenho::setRepositorio(RepositorioObjetos *repo){
     update();
 }
 
-void FrameDesenho::paintEvent(QPaintEvent*){
-    QFrame::paintEvent(nullptr);
+void FrameDesenho::paintEvent(QPaintEvent* event){
+    QFrame::paintEvent(event); // CORREÇÃO AQUI
 
     if (!repo) return;
 
@@ -23,3 +23,4 @@ void FrameDesenho::paintEvent(QPaintEvent*){
         obj->desenhar(p);
     }
 }
+

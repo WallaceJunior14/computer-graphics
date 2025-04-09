@@ -1,8 +1,5 @@
 #include "mainwindow.h"
-
 #include <QApplication>
-
-
 #include "FormaFactory.h"
 
 int main(int argc, char *argv[])
