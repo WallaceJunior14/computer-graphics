@@ -9,6 +9,7 @@ class ObjetoGrafico {
 protected:
     QColor cor;
     int tamanho;
+    int raio;
 
 public:
     ObjetoGrafico();
@@ -22,6 +23,9 @@ public:
 
     virtual int getTamanho() const { return tamanho; }
     virtual void setTamanho(int novoTamanho) { tamanho = novoTamanho; }
+
+    virtual int getRaio() const { return raio; }
+    virtual void setRaio(int novoRaio) { tamanho = novoRaio; }
 };
 
 #endif // OBJETOGRAFICO_H

@@ -17,3 +17,7 @@ QString Ponto::toString() const {
     return QString("Ponto em (%1, %2), Tamanho: %3, Cor: %4")
     .arg(x).arg(y).arg(tamanho).arg(cor.name());
 }
+
+int Ponto::getTamanho() const {
+    return tamanho;
+}

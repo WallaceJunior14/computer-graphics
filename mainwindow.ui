@@ -27,7 +27,7 @@
      <bool>true</bool>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::NoFrame</enum>
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -147,6 +147,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="lblRaio">
+       <property name="text">
+        <string>Raio:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinRaio"/>
+     </item>
+     <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Tamanho:</string>
@@ -207,7 +217,7 @@
      <x>0</x>
      <y>0</y>
      <width>827</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

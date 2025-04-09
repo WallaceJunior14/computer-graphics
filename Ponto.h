@@ -12,6 +12,7 @@ public:
 
     int getX() const { return x; }
     int getY() const { return y; }
+    int getTamanho() const override;
 
 private:
     int x, y;

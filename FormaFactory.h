@@ -10,12 +10,14 @@
 #include "Reta.h"
 #include "Triangulo.h"
 #include "Quadrado.h"
+#include "Circunferencia.h"
 
 class FormaFactory {
 public:
     using CriadorFormaSimples = std::function<ObjetoGrafico*(int x, int y, int tamanho, const QColor&)>;
     using CriadorFormaComplexa = std::function<ObjetoGrafico*(int x1, int y1, int x2, int y2, int tamanho, const QColor&)>;
     using CriadorFormaTriangulo = std::function<ObjetoGrafico*(int x1, int y1, int x2, int y2, int x3, int y3, int tamanho, const QColor&)>;
+    using CriadorFormaCircunferencia = std::function<ObjetoGrafico*(int x1, int y1, int raio, int tamanho, const QColor&)>;
 
     static FormaFactory& instance() {
         static FormaFactory inst;
@@ -34,10 +36,15 @@ public:
         formasTriangulo[nome] = criador;
     }
 
+    void registrarCircunferencia(const QString& nome, CriadorFormaCircunferencia criador) {
+        formasCircunferencia[nome] = criador;
+    }
+
     QStringList nomesFormas() const {
         QStringList nomes = formasSimples.keys();
         nomes.append(formasComplexas.keys());
         nomes.append(formasTriangulo.keys());
+        nomes.append(formasCircunferencia.keys());
         return nomes;
     }
 
@@ -65,10 +72,19 @@ public:
         return nullptr;
     }
 
+    // Para formas circunferencia
+    ObjetoGrafico* criar(const QString& nome, int x1, int y1, int raio, int tamanho, const QColor& cor) {
+        if (formasCircunferencia.contains(nome)) {
+            return formasCircunferencia[nome](x1, y1, raio, tamanho, cor);
+        }
+        return nullptr;
+    }
+
 private:
     QMap<QString, CriadorFormaSimples> formasSimples;
     QMap<QString, CriadorFormaComplexa> formasComplexas;
     QMap<QString, CriadorFormaTriangulo> formasTriangulo;
+    QMap<QString, CriadorFormaCircunferencia> formasCircunferencia;
 };
 
 #endif // FORMAFACTORY_H

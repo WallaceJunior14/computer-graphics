@@ -33,6 +33,10 @@ int main(int argc, char *argv[])
         return new Quadrado(p1, p2, tamanho, cor);
     });
 
+    FormaFactory::instance().registrarCircunferencia("Circunferencia", [](int x1, int y1, int raio, int tamanho, const QColor& cor) {
+        Ponto p1(x1, y1, tamanho, cor);
+        return new Circunferencia(p1, raio, tamanho, cor);
+    });
 
     MainWindow w;
     w.show();
