@@ -20,6 +20,7 @@ public:
 
 private slots:
     void on_btnDesenhar_clicked();
+
     void on_btnCor_clicked();
 
     void atualizarCamposForma(const QString& formaSelecionada);
@@ -29,6 +30,8 @@ private slots:
     void on_cbDisplayFile_currentIndexChanged(int index);
 
     void on_btnExcluirForma_clicked();
+
+    void on_btnEditarForma_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -36,7 +36,7 @@
       <x>20</x>
       <y>10</y>
       <width>113</width>
-      <height>642</height>
+      <height>668</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -165,8 +165,11 @@
      </item>
      <item>
       <widget class="QSpinBox" name="spinTamanho">
+       <property name="minimum">
+        <number>1</number>
+       </property>
        <property name="maximum">
-        <number>15</number>
+        <number>20</number>
        </property>
       </widget>
      </item>
@@ -181,6 +184,13 @@
       <widget class="QPushButton" name="btnDesenhar">
        <property name="text">
         <string>Adicionar</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnEditarForma">
+       <property name="text">
+        <string>Editar</string>
        </property>
       </widget>
      </item>
