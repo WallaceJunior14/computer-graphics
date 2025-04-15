@@ -20,11 +20,15 @@ public:
 private slots:
     void on_btnDesenhar_clicked();
     void on_btnCor_clicked();
-    void atualizarCamposForma(const QString& formaSelecionada);
     void on_btnMostrar_clicked();
     void on_cbDisplayFile_currentIndexChanged(int index);
     void on_btnExcluirForma_clicked();
+
+    // Função para resetar a seleção da displayFile na tela.
     void resetarSelecao();
+
+    // Função para atualizar os campos pela forma selecionada.
+    void atualizarCamposForma(const QString& formaSelecionada);
 
 private:
     Ui::MainWindow *ui;

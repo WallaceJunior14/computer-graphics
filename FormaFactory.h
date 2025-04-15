@@ -12,6 +12,7 @@
 #include "Quadrado.h"
 #include "Circunferencia.h"
 
+// Design Pattern -> Factory: serve para registrar as formas na main;
 class FormaFactory {
 public:
     using CriadorFormaSimples = std::function<ObjetoGrafico*(int x, int y, int tamanho, const QColor&)>;

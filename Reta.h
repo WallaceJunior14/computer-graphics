@@ -9,8 +9,8 @@ class Reta : public ObjetoGrafico {
 public:
     Reta(const Ponto& ponto1, const Ponto& ponto2, int tamanho, const QColor& cor);
 
+    // Sobreescrita das fuções dentro da classe ObjetoGrafico
     void desenhar(QPainter& painter) const override;
-
     QString toString() const override;
 
     // setters e getters

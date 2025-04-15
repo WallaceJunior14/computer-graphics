@@ -5,6 +5,7 @@
 #include <QString>
 #include <QColor>
 
+// Classe abstrata para as formas (ponto, reta...).
 class ObjetoGrafico {
 protected:
     QColor cor;
@@ -15,9 +16,13 @@ public:
     ObjetoGrafico();
     virtual ~ObjetoGrafico() = default;
 
+    // Função para desenhar no frame.
     virtual void desenhar(QPainter& painter) const = 0;
+
+    // Função para pegar todas as informações do objeto;.
     virtual QString toString() const = 0;
 
+    // Getters e Setters
     virtual QColor getCor() const { return cor; }
     virtual void setCor(const QColor& novaCor) { cor = novaCor; }
 

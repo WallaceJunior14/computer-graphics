@@ -10,10 +10,10 @@ class Circunferencia : public ObjetoGrafico
 public:
     Circunferencia(const Ponto& ponto1, const int raio, int tamanho, const QColor& cor);
 
-    void desenhar(QPainter& painter) const override;
-
     ~Circunferencia() override = default;
 
+    // Sobreescrita das fuções dentro da classe ObjetoGrafico
+    void desenhar(QPainter& painter) const override;
     QString toString() const override;
 
     // setters e getters

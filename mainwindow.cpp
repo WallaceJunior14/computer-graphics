@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Conecta o repositório ao frame
     ui->frameDesenho->setRepositorio(&repositorio);
 
-    // Log -> mostrar lista de repositorio : desativado
+    // Log -> mostrar lista dos objetos no repositorio : desativado
     ui->btnMostrar->hide();
 
     // Carrega as formas disponíveis

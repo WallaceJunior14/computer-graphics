@@ -9,10 +9,10 @@ class Triangulo : public ObjetoGrafico {
 public:
     Triangulo(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, int tamanho, const QColor& cor);
 
-    void desenhar(QPainter& painter) const override;
-
     ~Triangulo() override = default;
 
+    // Sobreescrita das fuções dentro da classe ObjetoGrafico
+    void desenhar(QPainter& painter) const override;
     QString toString() const override;
 
     // Setters e Getters
