@@ -13,7 +13,7 @@ protected:
     int raio;
 
 public:
-    ObjetoGrafico();
+    ObjetoGrafico(){};
     virtual ~ObjetoGrafico() = default;
 
     // Função para desenhar no frame.

@@ -7,7 +7,7 @@ Circunferencia::Circunferencia(const Ponto& ponto1, int raio, int tamanho, const
 
 void Circunferencia::desenhar(QPainter& painter) const {
     painter.setPen(QPen(cor, tamanho));
-    //painter.drawEllipse(p1.getX(),p1.getY(),raio,raio);
+
     int numPoints = 10000;
     for (int i = 0; i < numPoints; ++i) {
         int x1 = p1.getX() + int(raio * cos(i * 2 * M_PI / numPoints));
