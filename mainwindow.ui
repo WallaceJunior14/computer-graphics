@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>827</width>
-    <height>715</height>
+    <height>754</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
      <bool>true</bool>
     </property>
     <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
+     <enum>QFrame::Shape::NoFrame</enum>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -36,7 +36,7 @@
       <x>20</x>
       <y>10</y>
       <width>113</width>
-      <height>668</height>
+      <height>681</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -188,13 +188,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnEditarForma">
-       <property name="text">
-        <string>Editar</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="btnExcluirForma">
        <property name="text">
         <string>Excluir</string>
@@ -227,7 +220,7 @@
      <x>0</x>
      <y>0</y>
      <width>827</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

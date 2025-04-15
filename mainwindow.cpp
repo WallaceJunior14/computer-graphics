@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Conecta o repositório ao frame uma única vez
+    // Conecta o repositório ao frame
     ui->frameDesenho->setRepositorio(&repositorio);
 
     // Log -> mostrar lista de repositorio : desativado
@@ -30,9 +30,6 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::atualizarCamposForma);
     connect(ui->cbDisplayFile, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::on_cbDisplayFile_currentIndexChanged);
-    connect(ui->btnEditarForma, &QPushButton::clicked,
-            this, &MainWindow::on_btnEditarForma_clicked);
-
 }
 
 MainWindow::~MainWindow() {
@@ -53,40 +50,11 @@ void MainWindow::on_btnDesenhar_clicked() {
     int tamanho = ui->spinTamanho->value();
     int raio = ui->spinRaio->value();
 
-    ObjetoGrafico* objeto = nullptr;
+    ui->frameDesenho->adicionarForma(forma, x1, y1, x2, y2, x3, y3, raio, tamanho, corSelecionada, indiceSelecionado);
 
-    if (forma == "Ponto") {
-        objeto = FormaFactory::instance().criar(forma, x1, y1, tamanho, corSelecionada);
-    } else if (forma == "Reta" || forma == "Quadrado") {
-        objeto = FormaFactory::instance().criar(forma, x1, y1, x2, y2, tamanho, corSelecionada);
-    } else if (forma == "Triangulo") {
-        objeto = FormaFactory::instance().criar(forma, x1, y1, x2, y2, x3, y3, tamanho, corSelecionada);
-    } else if (forma == "Circunferencia") {
-        objeto = FormaFactory::instance().criar(forma, x1, y1, raio, tamanho, corSelecionada);
-}
-
-    if (!objeto) {
-        QMessageBox::warning(this, "Erro", "Forma não reconhecida: " + forma);
-        return;
-    }
-
-    if (indiceSelecionado >= 0 && indiceSelecionado < static_cast<int>(repositorio.obterTodos().size())) {
-        auto resposta = QMessageBox::question(this, "Editar forma",
-                                              "Deseja substituir a forma selecionada?",
-                                              QMessageBox::Yes | QMessageBox::No);
-        if (resposta == QMessageBox::Yes) {
-            repositorio.atualizar(indiceSelecionado, std::unique_ptr<ObjetoGrafico>(objeto));
-        } else {
-            repositorio.adicionar(std::unique_ptr<ObjetoGrafico>(objeto));
-        }
-        indiceSelecionado = -1;
-        ui->cbDisplayFile->setCurrentIndex(-1);
-    } else {
-        repositorio.adicionar(std::unique_ptr<ObjetoGrafico>(objeto));
-    }
-
-    atualizarCBDisplayFile();
-    ui->cbDisplayFile->setCurrentIndex(-1);
+    MainWindow::atualizarCBDisplayFile();
+    MainWindow::resetarSelecao();
+    update();
     ui->frameDesenho->update();
 }
 
@@ -106,11 +74,9 @@ void MainWindow::on_btnMostrar_clicked() {
 }
 
 void MainWindow::atualizarCamposForma(const QString& formaSelecionada) {
-    // Oculta botão de excluir e raio
     ui->btnExcluirForma->hide();
     ui->lblRaio->hide();
     ui->spinRaio->hide();
-    ui->btnEditarForma->hide();
 
     static const QList<QWidget*> campos2 = {
         ui->spinX2, ui->spinY2, ui->lblCoordenadaX2, ui->lblCoordenadaY2
@@ -123,14 +89,11 @@ void MainWindow::atualizarCamposForma(const QString& formaSelecionada) {
 
     if (formaSelecionada == "Reta" || formaSelecionada == "Quadrado") {
         for (QWidget* campo : campos2) campo->show();
-
     } else if (formaSelecionada == "Triangulo") {
         for (QWidget* campo : campos2 + campos3) campo->show();
-
     } else if (formaSelecionada == "Circunferencia") {
         ui->lblRaio->show();
         ui->spinRaio->show();
-        for (QWidget* campo : campos2 + campos3) campo->hide();
     }
 }
 
@@ -140,38 +103,34 @@ void MainWindow::atualizarCBDisplayFile() {
         ui->cbDisplayFile->addItem(forma->toString());
     }
 }
-void MainWindow::on_cbDisplayFile_currentIndexChanged(int index)
-{
+
+void MainWindow::on_cbDisplayFile_currentIndexChanged(int index) {
     if (index < 0 || index >= static_cast<int>(repositorio.obterTodos().size())) {
         indiceSelecionado = -1;
-        ui->btnEditarForma->hide();
+        ui->btnDesenhar->setText("Adicionar");
         return;
     }
 
-    ui->btnEditarForma->show();
     const auto& forma = repositorio.obterTodos().at(index);
     indiceSelecionado = index;
+    ui->btnDesenhar->setText("Editar");
 
-    // Aqui você pode usar RTTI para verificar o tipo
     if (auto ponto = dynamic_cast<const Ponto*>(forma.get())) {
         ui->comboFormas->setCurrentText("Ponto");
         ui->spinX1->setValue(ponto->getX());
         ui->spinY1->setValue(ponto->getY());
-
     } else if (auto reta = dynamic_cast<const Reta*>(forma.get())) {
         ui->comboFormas->setCurrentText("Reta");
         ui->spinX1->setValue(reta->getP1().getX());
         ui->spinY1->setValue(reta->getP1().getY());
         ui->spinX2->setValue(reta->getP2().getX());
         ui->spinY2->setValue(reta->getP2().getY());
-
     } else if (auto quad = dynamic_cast<const Quadrado*>(forma.get())) {
         ui->comboFormas->setCurrentText("Quadrado");
         ui->spinX1->setValue(quad->getP1().getX());
         ui->spinY1->setValue(quad->getP1().getY());
         ui->spinX2->setValue(quad->getP2().getX());
         ui->spinY2->setValue(quad->getP2().getY());
-
     } else if (auto tri = dynamic_cast<const Triangulo*>(forma.get())) {
         ui->comboFormas->setCurrentText("Triangulo");
         ui->spinX1->setValue(tri->getP1().getX());
@@ -180,7 +139,6 @@ void MainWindow::on_cbDisplayFile_currentIndexChanged(int index)
         ui->spinY2->setValue(tri->getP2().getY());
         ui->spinX3->setValue(tri->getP3().getX());
         ui->spinY3->setValue(tri->getP3().getY());
-
     } else if (auto cir = dynamic_cast<const Circunferencia*>(forma.get())) {
         ui->comboFormas->setCurrentText("Circunferencia");
         ui->spinX1->setValue(cir->getP1().getX());
@@ -191,14 +149,16 @@ void MainWindow::on_cbDisplayFile_currentIndexChanged(int index)
     ui->spinTamanho->setValue(forma->getTamanho());
     corSelecionada = forma->getCor();
 
-    indiceSelecionado = index;
-
-    // Ativa botão de excluir
     ui->btnExcluirForma->show();
 }
 
-void MainWindow::on_btnExcluirForma_clicked()
-{
+void MainWindow::resetarSelecao() {
+    indiceSelecionado = -1;
+    ui->cbDisplayFile->setCurrentIndex(-1);
+    ui->btnExcluirForma->hide();
+}
+
+void MainWindow::on_btnExcluirForma_clicked() {
     if (indiceSelecionado != -1) {
         auto resposta = QMessageBox::question(this, "Confirmar exclusão",
                                               "Deseja realmente excluir a forma selecionada?",
@@ -212,50 +172,3 @@ void MainWindow::on_btnExcluirForma_clicked()
         }
     }
 }
-
-void MainWindow::on_btnEditarForma_clicked()
-{
-    if (indiceSelecionado < 0 || indiceSelecionado >= static_cast<int>(repositorio.obterTodos().size()))
-        return;
-
-    QString forma = ui->comboFormas->currentText();
-
-    if (!corSelecionada.isValid()) {
-        QMessageBox::warning(this, "Aviso", "Escolha uma cor antes de editar.");
-        return;
-    }
-
-    int x1 = ui->spinX1->value(), y1 = ui->spinY1->value();
-    int x2 = ui->spinX2->value(), y2 = ui->spinY2->value();
-    int x3 = ui->spinX3->value(), y3 = ui->spinY3->value();
-    int tamanho = ui->spinTamanho->value();
-    int raio = ui->spinRaio->value();
-
-    ObjetoGrafico* objeto = nullptr;
-
-    if (forma == "Ponto") {
-        objeto = FormaFactory::instance().criar(forma, x1, y1, tamanho, corSelecionada);
-    } else if (forma == "Reta" || forma == "Quadrado") {
-        objeto = FormaFactory::instance().criar(forma, x1, y1, x2, y2, tamanho, corSelecionada);
-    } else if (forma == "Triangulo") {
-        objeto = FormaFactory::instance().criar(forma, x1, y1, x2, y2, x3, y3, tamanho, corSelecionada);
-    } else if (forma == "Circunferencia") {
-        objeto = FormaFactory::instance().criar(forma, x1, y1, raio, tamanho, corSelecionada);
-    }
-
-    if (!objeto) {
-        QMessageBox::warning(this, "Erro", "Forma não reconhecida: " + forma);
-        return;
-    }
-
-    repositorio.atualizar(indiceSelecionado, std::unique_ptr<ObjetoGrafico>(objeto));
-    atualizarCBDisplayFile();
-    ui->frameDesenho->update();
-
-    // Reset seleção
-    indiceSelecionado = -1;
-    ui->cbDisplayFile->setCurrentIndex(-1);
-    ui->btnEditarForma->hide();
-    ui->btnExcluirForma->hide();
-}
-
