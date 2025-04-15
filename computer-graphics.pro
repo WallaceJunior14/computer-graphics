@@ -11,7 +11,6 @@ CONFIG += c++17
 SOURCES += \
     Circunferencia.cpp \
     FrameDesenho.cpp \
-    ObjetoGrafico.cpp \
     Ponto.cpp \
     Quadrado.cpp \
     RepositorioObjetos.cpp \

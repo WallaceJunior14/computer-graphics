@@ -12,7 +12,7 @@ protected:
     int raio;
 
 public:
-    ObjetoGrafico();
+    ObjetoGrafico(){};
     virtual ~ObjetoGrafico() = default;
 
     virtual void desenhar(QPainter& painter) const = 0;
