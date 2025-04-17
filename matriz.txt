@@ -1,0 +1,137 @@
+#include <iostream>
+#include <vector>
+#include <cmath> // Para funções trigonométricas
+#include <stdexcept> // Para tratamento de exceções
+
+using namespace std;
+
+class Matriz : public vector<vector<double>> {
+public:
+    // Construtores
+    Matriz(int rows, int cols) : vector<vector<double>>(rows, vector<double>(cols, 0.0)) {}
+    Matriz(const vector<vector<double>>& data) : vector<vector<double>>(data) {}
+
+    // Retorna uma matriz identidade de tamanho n x n
+    static Matriz identidade(int n) {
+        Matriz identidade(n, n);
+        for (int i = 0; i < n; ++i) {
+            identidade[i][i] = 1.0;
+        }
+        return identidade;
+    }
+
+    // Retorna uma matriz de rotação em torno de um eixo específico em n dimensões
+    // axis_index: 0 para eixo X, 1 para eixo Y, 2 para eixo Z, etc.
+    // angle_rad: ângulo de rotação em radianos
+    // dimension: dimensão do espaço (deve ser >= 2)
+    static Matriz rotacao(int dimension, int axis_index1, int axis_index2, double angle_rad) {
+        if (dimension < 2 || axis_index1 < 0 || axis_index1 >= dimension || axis_index2 < 0 || axis_index2 >= dimension || axis_index1 == axis_index2) {
+            throw invalid_argument("Dimensão inválida ou índices de eixo inválidos para rotação.");
+        }
+
+        Matriz rotacao(dimension, dimension);
+        for (int i = 0; i < dimension; ++i) {
+            rotacao[i][i] = 1.0; // Inicializa com a matriz identidade
+        }
+
+        double cos_theta = cos(angle_rad);
+        double sin_theta = sin(angle_rad);
+
+        rotacao[axis_index1][axis_index1] = cos_theta;
+        rotacao[axis_index1][axis_index2] = -sin_theta;
+        rotacao[axis_index2][axis_index1] = sin_theta;
+        rotacao[axis_index2][axis_index2] = cos_theta;
+
+        return rotacao;
+    }
+
+    // Retorna uma matriz de translação em n dimensões
+    // translations: vetor contendo os valores de translação para cada dimensão
+    static Matriz translacao(const vector<double>& translations) {
+        int dimension = translations.size();
+        Matriz translacao(dimension + 1, dimension + 1);
+        for (int i = 0; i < dimension; ++i) {
+            translacao[i][i] = 1.0;
+            translacao[i][dimension] = translations[i];
+        }
+        translacao[dimension][dimension] = 1.0; // Última linha e coluna para coordenadas homogêneas
+        return translacao;
+    }
+
+    // Multiplicação de matrizes
+    Matriz operator*(const Matriz& other) const {
+        int rows_a = this->size();
+        int cols_a = (rows_a > 0) ? (*this)[0].size() : 0;
+        int rows_b = other.size();
+        int cols_b = (rows_b > 0) ? other[0].size() : 0;
+
+        if (cols_a != rows_b) {
+            throw runtime_error("Erro: Número de colunas da primeira matriz deve ser igual ao número de linhas da segunda matriz.");
+        }
+
+        Matriz resultado(rows_a, cols_b);
+        for (int i = 0; i < rows_a; ++i) {
+            for (int j = 0; j < cols_b; ++j) {
+                for (int k = 0; k < cols_a; ++k) {
+                    resultado[i][j] += (*this)[i][k] * other[k][j];
+                }
+            }
+        }
+        return resultado;
+    }
+
+    // Função para imprimir a matriz (opcional, para debugging)
+    void print() const {
+        for (const auto& row : *this) {
+            for (double val : row) {
+                cout << val << " ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    // Matriz Identidade
+    cout << "Matriz Identidade 5x5:" << endl;
+    Matriz identidade5 = Matriz::identidade(5);
+    identidade5.print();
+
+    // Matriz de Rotação Genérica (em 3D, rotação em torno do eixo X)
+    double angulo_x = 30.0 * M_PI / 180.0;
+    cout << "Matriz de Rotação Genérica 3D (em torno de X, 30 graus):" << endl;
+    Matriz rotacao_x_gen = Matriz::rotacao(3, 1, 2, angulo_x); // Rotação nos planos YZ (afeta Y e Z), que é rotação em X
+    rotacao_x_gen.print();
+
+    // Matriz de Rotação Genérica (em 4D, rotação no plano XY)
+    double angulo_xy = 45.0 * M_PI / 180.0;
+    cout << "Matriz de Rotação Genérica 4D (no plano XY, 45 graus):" << endl;
+    Matriz rotacao_xy_4d = Matriz::rotacao(4, 0, 1, angulo_xy);
+    rotacao_xy_4d.print();
+
+    // Matriz de Translação Genérica (em 3D)
+    vector<double> translacao_3d_vals = {2.0, -1.0, 3.5};
+    cout << "Matriz de Translação Genérica 3D (tx=2, ty=-1, tz=3.5):" << endl;
+    Matriz translacao_gen_3d = Matriz::translacao(translacao_3d_vals);
+    translacao_gen_3d.print();
+
+    // Matriz de Translação Genérica (em 2D)
+    vector<double> translacao_2d_vals = {1.5, 0.5};
+    cout << "Matriz de Translação Genérica 2D (tx=1.5, ty=0.5):" << endl;
+    Matriz translacao_gen_2d = Matriz::translacao(translacao_2d_vals);
+    translacao_gen_2d.print();
+
+    // Multiplicação (continua funcionando da mesma forma)
+    Matriz matriz_a = {{1.0, 2.0}, {3.0, 4.0}};
+    Matriz matriz_b = {{2.0, 0.0}, {1.0, -1.0}};
+    cout << "Matriz A:" << endl;
+    matriz_a.print();
+    cout << "Matriz B:" << endl;
+    matriz_b.print();
+    cout << "Matriz A * Matriz B:" << endl;
+    Matriz resultado_mult = matriz_a * matriz_b;
+    resultado_mult.print();
+
+    return 0;
+}
