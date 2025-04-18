@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     Circunferencia.cpp \
     FrameDesenho.cpp \
+    Matriz.cpp \
     Ponto.cpp \
     Quadrado.cpp \
     RepositorioObjetos.cpp \
@@ -23,6 +24,7 @@ HEADERS += \
     Circunferencia.h \
     FormaFactory.h \
     FrameDesenho.h \
+    Matriz.h \
     ObjetoGrafico.h \
     Ponto.h \
     Quadrado.h \

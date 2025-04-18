@@ -14,6 +14,7 @@ protected:
 
 public:
     ObjetoGrafico(){};
+    ObjetoGrafico(const QColor& cor) : cor(cor), tamanho(1), raio(1) {}
     virtual ~ObjetoGrafico() = default;
 
     // Função para desenhar no frame.
@@ -31,6 +32,12 @@ public:
 
     virtual int getRaio() const { return raio; }
     virtual void setRaio(int novoRaio) { tamanho = novoRaio; }
+
+    virtual QPen getPen() const {
+        QPen pen(cor);
+        pen.setWidth(tamanho);
+        return pen;
+    }
 };
 
 #endif // OBJETOGRAFICO_H
