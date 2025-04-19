@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>827</width>
-    <height>754</height>
+    <height>728</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
       <x>20</x>
       <y>10</y>
       <width>113</width>
-      <height>681</height>
+      <height>651</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -155,23 +155,6 @@
      </item>
      <item>
       <widget class="QSpinBox" name="spinRaio"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Tamanho:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="spinTamanho">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>20</number>
-       </property>
-      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnCor">

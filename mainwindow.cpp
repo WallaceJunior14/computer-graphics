@@ -47,10 +47,9 @@ void MainWindow::on_btnDesenhar_clicked() {
     int x1 = ui->spinX1->value(), y1 = ui->spinY1->value();
     int x2 = ui->spinX2->value(), y2 = ui->spinY2->value();
     int x3 = ui->spinX3->value(), y3 = ui->spinY3->value();
-    int tamanho = ui->spinTamanho->value();
     int raio = ui->spinRaio->value();
 
-    ui->frameDesenho->adicionarForma(forma, x1, y1, x2, y2, x3, y3, raio, tamanho, corSelecionada, indiceSelecionado);
+    ui->frameDesenho->adicionarForma(forma, x1, y1, x2, y2, x3, y3, raio, corSelecionada, indiceSelecionado);
 
     MainWindow::atualizarCBDisplayFile();
     MainWindow::resetarSelecao();
@@ -146,7 +145,6 @@ void MainWindow::on_cbDisplayFile_currentIndexChanged(int index) {
         ui->spinRaio->setValue(cir->getRaio());
     }
 
-    ui->spinTamanho->setValue(forma->getTamanho());
     corSelecionada = forma->getCor();
 
     ui->btnExcluirForma->show();

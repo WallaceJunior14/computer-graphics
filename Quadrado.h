@@ -7,23 +7,25 @@
 
 class Quadrado : public ObjetoGrafico {
 public:
-    Quadrado(const Ponto& ponto1, const Ponto& ponto2, int tamanho, const QColor& cor);
+    Quadrado(const Ponto& ponto1, const Ponto& ponto2, const QColor& cor);
+    ~Quadrado() override = default;
 
     void desenhar(QPainter& painter) const override;
 
-    ~Quadrado() override = default;
+    // Transformações e verificação
+    void aplicarTransformacao(const Matriz& transformacao);
+    void normalizar();
+    bool eh3D() const;
 
     QString toString() const override;
 
     // setters e getters
     Ponto getP1() const { return p1; }
     Ponto getP2() const { return p2; }
-    int getTamanho() const override;
 
 private:
-    const Ponto p1, p2;
-    const int tamanho;
-    const QColor cor;
+    Ponto p1, p2;
+    QColor cor;
 };
 
 #endif // QUADRADO_H

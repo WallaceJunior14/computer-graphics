@@ -7,21 +7,23 @@
 
 class Reta : public ObjetoGrafico {
 public:
-    Reta(const Ponto& ponto1, const Ponto& ponto2, int tamanho, const QColor& cor);
+    Reta(const Ponto& ponto1, const Ponto& ponto2, const QColor& cor);
 
     // Sobreescrita das fuções dentro da classe ObjetoGrafico
     void desenhar(QPainter& painter) const override;
     QString toString() const override;
 
+    // Manipulção 3D
+    void aplicarTransformacao(const Matriz& transformacao);
+    void normalizar();
+    bool eh3D() const;
+
     // setters e getters
     Ponto getP1() const { return p1; }
     Ponto getP2() const { return p2; }
-    int getTamanho() const override;
 
 private:
     Ponto p1, p2;
-    int tamanho;
-    QColor cor;
 };
 
 

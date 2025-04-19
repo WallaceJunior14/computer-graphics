@@ -5,27 +5,28 @@
 #include "Ponto.h"
 #include <memory>
 
-class Circunferencia : public ObjetoGrafico
-{
+class Circunferencia : public ObjetoGrafico {
 public:
-    Circunferencia(const Ponto& ponto1, const int raio, int tamanho, const QColor& cor);
-
+    Circunferencia(const Ponto& ponto1, int raio, const QColor& cor);
     ~Circunferencia() override = default;
 
-    // Sobreescrita das fuções dentro da classe ObjetoGrafico
+    // Sobrescrita das funções da classe ObjetoGrafico
     void desenhar(QPainter& painter) const override;
     QString toString() const override;
 
-    // setters e getters
+    // Getters
     Ponto getP1() const { return p1; }
-    int getRaio() const {return raio;}
-    int getTamanho() const override;
+    int getRaio() const { return raio; }
+
+    // Métodos de transformação
+    void aplicarTransformacao(const Matriz& transformacao);
+    void normalizar();
+    bool eh3D() const;
 
 private:
-    const Ponto p1;
-    const int raio;
-    const int tamanho;
-    const QColor cor;
+    Ponto p1;
+    int raio;
+    QColor cor;
 };
 
 #endif // CIRCUNFERENCIA_H

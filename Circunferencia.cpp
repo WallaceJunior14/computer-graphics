@@ -2,11 +2,11 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-Circunferencia::Circunferencia(const Ponto& ponto1, int raio, int tamanho, const QColor& cor)
-    : p1(ponto1), raio(raio), tamanho(tamanho), cor(cor) {}
+Circunferencia::Circunferencia(const Ponto& ponto1, int raio, const QColor& cor)
+    : ObjetoGrafico(cor), p1(ponto1), raio(raio), cor(cor) {}
 
 void Circunferencia::desenhar(QPainter& painter) const {
-    painter.setPen(QPen(cor, tamanho));
+    painter.setPen(getPen());
 
     int numPoints = 10000;
     for (int i = 0; i < numPoints; ++i) {
@@ -17,18 +17,24 @@ void Circunferencia::desenhar(QPainter& painter) const {
 }
 
 QString Circunferencia::toString() const {
-    return QString("Circunferencia: P1(%1, %2), Raio %3, Tamanho: %4, Cor: %5")
+    return QString("Circunferencia: P1(%1, %2), Raio %3, Cor: %5")
         .arg(p1.getX())
         .arg(p1.getY())
         .arg(raio)
-        .arg(tamanho)
         .arg(cor.name());
 }
 
-int Circunferencia::getTamanho() const {
-    return tamanho;
+void Circunferencia::aplicarTransformacao(const Matriz& transformacao) {
+    Ponto novoCentro = p1;
+    novoCentro.aplicarTransformacao(transformacao);
+    p1 = novoCentro;
 }
 
+void Circunferencia::normalizar() {
+    p1.normalizar();
+}
 
-
+bool Circunferencia::eh3D() const {
+    return p1.eh3D();
+}
 

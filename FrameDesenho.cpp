@@ -25,19 +25,19 @@ void FrameDesenho::paintEvent(QPaintEvent* event) {
     }
 }
 
-void FrameDesenho::adicionarForma(const QString& tipo, int x1, int y1, int x2, int y2, int x3, int y3, int raio, int tamanho, QColor cor, int indice) {
+void FrameDesenho::adicionarForma(const QString& tipo, int x1, int y1, int x2, int y2, int x3, int y3, int raio, QColor cor, int indice) {
     if (!repo || !cor.isValid()) return;
 
     ObjetoGrafico* objeto = nullptr;
 
     if (tipo == "Ponto") {
-        objeto = FormaFactory::instance().criar(tipo, x1, y1, tamanho, cor);
+        objeto = FormaFactory::instance().criar(tipo, x1, y1, cor);
     } else if (tipo == "Reta" || tipo == "Quadrado") {
-        objeto = FormaFactory::instance().criar(tipo, x1, y1, x2, y2, tamanho, cor);
+        objeto = FormaFactory::instance().criar(tipo, x1, y1, x2, y2, cor);
     } else if (tipo == "Triangulo") {
-        objeto = FormaFactory::instance().criar(tipo, x1, y1, x2, y2, x3, y3, tamanho, cor);
+        objeto = FormaFactory::instance().criar(tipo, x1, y1, x2, y2, x3, y3, cor);
     } else if (tipo == "Circunferencia") {
-        objeto = FormaFactory::instance().criar(tipo, x1, y1, raio, tamanho, cor);
+        objeto = FormaFactory::instance().criar(tipo, x1, y1, raio, cor);
     }
 
     if (!objeto) return;
