@@ -23,10 +23,6 @@ void Reta::aplicarTransformacao(const Matriz& transformacao) {
 
     p1 = novoP1;
     p2 = novoP2;
-
-    qDebug() << "Antes:" << p1.getX() << "," << p1.getY();
-    p1.aplicarTransformacao(Matriz::escala2D(2, 2));
-    qDebug() << "Depois:" << p1.getX() << "," << p1.getY();
 }
 
 void Reta::normalizar() {

@@ -172,41 +172,18 @@ void MainWindow::on_btnExcluirForma_clicked() {
     }
 }
 
-/*
-void MainWindow::on_sldEscala_valueChanged(int value)
-{
-    if (indiceSelecionado == -1) {
-        QMessageBox::information(this, "Aviso", "Nenhum objeto selecionado.");
-        ui->sldEscala->setValue(0);
-        return;
-    }
-
-    // Calcular o fator de escala com base no valor do slider
-    double fatorEscala = static_cast<double>(value) / 100.0;
-
-    auto& objeto = repositorio.obterTodos()[indiceSelecionado];
-    Matriz matrizEscala = Matriz::escala2D(fatorEscala, fatorEscala);
-
-    objeto->aplicarTransformacao(matrizEscala);
-
-    ui->frameDesenho->update();
-
-    qDebug() << objeto->toString();
-}
-
-*/
 
 void MainWindow::on_btnTransformar_clicked()
 {
     if (indiceSelecionado == -1) {
         QMessageBox::warning(this, "Aviso", "Nenhum objeto selecionado.");
-        ui->spinEscalaX->setValue(0);
-        ui->spinEscalaY->setValue(0);
+        ui->spinTranslacaoX->setValue(0);
+        ui->spinTranslacaoY->setValue(0);
         return;
     }
 
-    double sx = ui->spinEscalaX->value();
-    double sy = ui->spinEscalaY->value();
+    double sx = ui->spinTranslacaoX->value();
+    double sy = ui->spinTranslacaoY->value();
 
     if (sx == 0 || sy == 0) {
         QMessageBox::warning(this, "Erro", "Os fatores de escala não podem ser zero.");
@@ -219,17 +196,19 @@ void MainWindow::on_btnTransformar_clicked()
 
     if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
         ponto->aplicarTransformacao(escala);
-
-        ui->frameDesenho->update();  // Atualiza a tela de desenho
-
-        // Exibe as informações após a transformação
-        qDebug() << "Depois da transformação:";
-        qDebug() << "Posição: (" << ponto->getX() << "," << ponto->getY() << ")";
-        qDebug() << "Cor: " << ponto->getCor().name();  // Cor em hexadecimal
-
-        // Atualiza o ComboBox, caso o cbDisplayFile seja o ComboBox
-        atualizarComboBox();  // Chame um método para atualizar o ComboBox
+    } else if (auto* reta = dynamic_cast<Reta*>(forma.get())) {
+        reta->aplicarTransformacao(escala);
+    } else if (auto* quadrado = dynamic_cast<Quadrado*>(forma.get())) {
+        quadrado->aplicarTransformacao(escala);
+    } else if (auto* triangulo = dynamic_cast<Triangulo*>(forma.get())) {
+        triangulo->aplicarTransformacao(escala);
+    }else if (auto* circunferencia = dynamic_cast<Circunferencia*>(forma.get())) {
+        circunferencia->aplicarTransformacao(escala);
     }
+
+    atualizarComboBox();  // Chame um método para atualizar o ComboBox
+    ui->frameDesenho->update();  // Atualiza a tela de desenho
+    resetarSelecao();
 }
 
 // Função para atualizar o ComboBox com os novos dados
