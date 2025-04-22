@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>983</width>
-    <height>724</height>
+    <width>1022</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -235,6 +235,9 @@
       <layout class="QGridLayout" name="gridLayout">
        <item row="1" column="0">
         <widget class="QSpinBox" name="spinTranslacaoX">
+         <property name="inputMethodHints">
+          <set>Qt::InputMethodHint::ImhDigitsOnly</set>
+         </property>
          <property name="minimum">
           <number>-99</number>
          </property>
@@ -291,6 +294,9 @@
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="1" column="0">
         <widget class="QSpinBox" name="spinEscalaY">
+         <property name="inputMethodHints">
+          <set>Qt::InputMethodHint::ImhDigitsOnly</set>
+         </property>
          <property name="minimum">
           <number>-99</number>
          </property>
@@ -347,6 +353,9 @@
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="1" column="0">
         <widget class="QSpinBox" name="spinRotacao">
+         <property name="inputMethodHints">
+          <set>Qt::InputMethodHint::ImhDigitsOnly</set>
+         </property>
          <property name="minimum">
           <number>-99</number>
          </property>
@@ -363,13 +372,52 @@
      </item>
     </layout>
    </widget>
+   <widget class="QCheckBox" name="checkBoxEscala">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>170</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxTranslacao">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>70</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxRotacao">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>270</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>983</width>
+     <width>1022</width>
      <height>25</height>
     </rect>
    </property>

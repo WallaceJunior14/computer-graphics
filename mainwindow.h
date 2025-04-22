@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QColor>
 
+#include "Matriz.h"
 #include "RepositorioObjetos.h"
 
 QT_BEGIN_NAMESPACE
@@ -33,6 +34,8 @@ private slots:
     void on_btnTransformar_clicked();
 
     void atualizarComboBox();
+
+    void realizarTransformacao(Matriz transformacao);
 
 private:
     Ui::MainWindow *ui;
