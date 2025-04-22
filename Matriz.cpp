@@ -4,6 +4,8 @@
 #include <random>
 #include <iostream>
 
+using namespace std;
+
 // Construtor para matriz vazia
 Matriz::Matriz() : linhas(0), colunas(0) {}
 
@@ -73,10 +75,10 @@ Matriz Matriz::rotacao2D(double anguloGraus) {
     double anguloRad = anguloGraus * M_PI / 180.0;
 
     // Arredondamos para o inteiro mais próximo, já que a classe usa int
-    r[0][0] = static_cast<int>(std::round(std::cos(anguloRad)));
-    r[0][1] = static_cast<int>(std::round(-std::sin(anguloRad)));
-    r[1][0] = static_cast<int>(std::round(std::sin(anguloRad)));
-    r[1][1] = static_cast<int>(std::round(std::cos(anguloRad)));
+    r[0][0] = static_cast<int>(round(cos(anguloRad)));
+    r[0][1] = static_cast<int>(round(-sin(anguloRad)));
+    r[1][0] = static_cast<int>(round(sin(anguloRad)));
+    r[1][1] = static_cast<int>(round(cos(anguloRad)));
 
     return r;
 }
