@@ -2,7 +2,8 @@
 #define MATRIZ_H
 
 #include <vector>
-#include <string>
+#include <stdexcept>
+#include <iostream>
 
 class Matriz : public std::vector<std::vector<int>> {
 private:
@@ -13,26 +14,38 @@ private:
 public:
     // Construtores
     Matriz();
-    Matriz(int lin, int col, int valorPadrao = 0);
+    Matriz(int lin, int col, double valorPadrao = 0.0);
 
-    // Métodos para obter dimensões da matriz
-    int getLinhas() const;
-    int getColunas() const;
+    // Getters
+    int getLinhas() const { return linhas; }
+    int getColunas() const { return colunas; }
 
-    // Imprimir matriz
+    // Acesso a elementos (como operador de matriz)
+    std::vector<double>& operator[](int i) {
+        return matriz[i];
+    }
+
+    const std::vector<double>& operator[](int i) const {
+        return matriz[i];
+    }
+
+    // Impressão
     void imprimir() const;
+
+    // Transformações 2D
+    static Matriz translacao2D(double tx, double ty);
+    static Matriz escala2D(double sx, double sy);
+    static Matriz rotacao2D(double anguloGraus);
+
+    // Outros métodos (redimensionar, aleatória, etc.)
+    void redimensionar(int novasLinhas, int novasColunas);
 
     // Matriz identidade
     static Matriz identidade(int tamanho);
 
-    // Matrizes de transformação 2D (coordenadas homogêneas)
-    static Matriz translacao2D(int tx, int ty);
-    static Matriz escala2D(int sx, int sy);
-    static Matriz rotacao2D(double anguloGraus);
-
     // Matrizes de transformação 3D (coordenadas homogêneas)
-    static Matriz translacao3D(int tx, int ty, int tz);
-    static Matriz escala3D(int sx, int sy, int sz);
+    static Matriz translacao3D(double tx, double ty, double tz);
+    static Matriz escala3D(double sx, double sy, double sz);
     static Matriz rotacaoX3D(double anguloGraus);
     static Matriz rotacaoY3D(double anguloGraus);
     static Matriz rotacaoZ3D(double anguloGraus);
@@ -42,15 +55,13 @@ public:
     Matriz operator*(const Matriz& outra) const;
 
     // Método para criar matrizes com valores aleatórios
-    static Matriz aleatoria(int lin, int col, int minValor = 0, int maxValor = 10);
+    static Matriz aleatoria(int lin, int col, double minValor = 0.0, double maxValor = 10.0);
 
     // Verificar se duas matrizes têm as mesmas dimensões
     bool mesmasDimensoes(const Matriz& outra) const;
 
     // Verificar se é uma matriz quadrada
     bool ehQuadrada() const;
-
-    void redimensionar(int novasLinhas, int novasColunas);
 };
 
 #endif // MATRIZ_H

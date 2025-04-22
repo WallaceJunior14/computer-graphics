@@ -3,15 +3,15 @@
 #include <cmath>
 
 // Construtor para ponto 3D
-Ponto::Ponto(int x, int y, int z, QColor cor)
+Ponto::Ponto(double x, double y, double z, QColor cor)
     : ObjetoGrafico(cor), Matriz(3, 1, 1) {
     (*this)[0][0] = x;
     (*this)[1][0] = y;
-    (*this)[2][0] = 1;  // coordenada homogênea
+    (*this)[2][0] = 1;  // Coordenada homogênea
 }
 
 // Construtor para ponto 2D (z=0)
-Ponto::Ponto(int x, int y, QColor cor)
+Ponto::Ponto(double x, double y, QColor cor)
     : Ponto(x, y, 0, cor) {
     // Chama o construtor 3D com z=0
 }
@@ -31,15 +31,16 @@ QString Ponto::toString() const {
     }
 }
 
-int Ponto::getX() const {
+// Getters
+double Ponto::getX() const {
     return (*this)[0][0];
 }
 
-int Ponto::getY() const {
+double Ponto::getY() const {
     return (*this)[1][0];
 }
 
-int Ponto::getZ() const {
+double Ponto::getZ() const {
     // Se for uma matriz 3x1 (ponto 2D), retorna 0
     if (getLinhas() == 3) {
         return 0;
@@ -47,15 +48,16 @@ int Ponto::getZ() const {
     return (*this)[2][0];
 }
 
-void Ponto::setX(int x) {
+// Setters
+void Ponto::setX(double x) {
     (*this)[0][0] = x;
 }
 
-void Ponto::setY(int y) {
+void Ponto::setY(double y) {
     (*this)[1][0] = y;
 }
 
-void Ponto::setZ(int z) {
+void Ponto::setZ(double z) {
     // Se for uma matriz 4x1 (ponto 3D)
     if (getLinhas() == 4) {
         (*this)[2][0] = z;
@@ -101,7 +103,6 @@ void Ponto::aplicarTransformacao(const Matriz& transformacao, const Ponto& centr
     }
 }
 
-
 void Ponto::normalizar() {
     // Obtém o índice do componente homogêneo (última linha)
     int homIndex = getLinhas() - 1;
@@ -119,7 +120,7 @@ double Ponto::distancia(const Ponto& outro) const {
     double somaQuadrados = 0.0;
 
     // Calcula a distância euclidiana considerando as dimensões disponíveis
-    int dimMin = std::min(getLinhas() - 1, outro.getLinhas() - 1);
+    double dimMin = std::min(getLinhas() - 1, outro.getLinhas() - 1);
 
     for (int i = 0; i < dimMin; i++) {
         double diff = (*this)[i][0] - outro[i][0];

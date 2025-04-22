@@ -10,20 +10,20 @@
 class Ponto : public ObjetoGrafico, public Matriz {
 public:
     // Construtores
-    Ponto(int x, int y, int z, QColor cor);
-    Ponto(int x, int y, QColor cor); // Sobrecarga para compatibilidade 2D (z=0)
+    Ponto(double x, double y, double z, QColor cor);
+    Ponto(double x, double y, QColor cor); // Sobrecarga para compatibilidade 2D (z=0)
 
     // Sobreescrita das funções dentro da classe ObjetoGrafico
     void desenhar(QPainter& painter) const override;
     QString toString() const override;
 
     // Getters e Setters
-    int getX() const;
-    int getY() const;
-    int getZ() const;
-    void setX(int x);
-    void setY(int y);
-    void setZ(int z);
+    double getX() const;
+    double getY() const;
+    double getZ() const;
+    void setX(double x);
+    void setY(double y);
+    void setZ(double z);
 
     // Métodos para transformações geométricas
     void aplicarTransformacao(const Matriz& transformacao, const Ponto& centro);

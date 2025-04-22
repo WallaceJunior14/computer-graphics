@@ -172,7 +172,6 @@ void MainWindow::on_btnExcluirForma_clicked() {
     }
 }
 
-
 void MainWindow::on_btnTransformar_clicked()
 {
     if (indiceSelecionado == -1) {
@@ -214,6 +213,7 @@ void MainWindow::on_btnTransformar_clicked()
 
         realizarTransformacao(escala);
     }
+
 
     if(ui->checkBoxRotacao->isChecked()){
         double ang = ui->spinRotacao->value();
