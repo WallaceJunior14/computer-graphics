@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::atualizarCamposForma);
     connect(ui->cbDisplayFile, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::on_cbDisplayFile_currentIndexChanged);
+
 }
 
 MainWindow::~MainWindow() {
@@ -170,3 +171,78 @@ void MainWindow::on_btnExcluirForma_clicked() {
         }
     }
 }
+
+/*
+void MainWindow::on_sldEscala_valueChanged(int value)
+{
+    if (indiceSelecionado == -1) {
+        QMessageBox::information(this, "Aviso", "Nenhum objeto selecionado.");
+        ui->sldEscala->setValue(0);
+        return;
+    }
+
+    // Calcular o fator de escala com base no valor do slider
+    double fatorEscala = static_cast<double>(value) / 100.0;
+
+    auto& objeto = repositorio.obterTodos()[indiceSelecionado];
+    Matriz matrizEscala = Matriz::escala2D(fatorEscala, fatorEscala);
+
+    objeto->aplicarTransformacao(matrizEscala);
+
+    ui->frameDesenho->update();
+
+    qDebug() << objeto->toString();
+}
+
+*/
+
+void MainWindow::on_btnTransformar_clicked()
+{
+    if (indiceSelecionado == -1) {
+        QMessageBox::warning(this, "Aviso", "Nenhum objeto selecionado.");
+        ui->spinEscalaX->setValue(0);
+        ui->spinEscalaY->setValue(0);
+        return;
+    }
+
+    double sx = ui->spinEscalaX->value();
+    double sy = ui->spinEscalaY->value();
+
+    if (sx == 0 || sy == 0) {
+        QMessageBox::warning(this, "Erro", "Os fatores de escala não podem ser zero.");
+        return;
+    }
+
+    Matriz escala = Matriz::escala2D(sx, sy);
+
+    auto& forma = repositorio.obterTodos().at(indiceSelecionado);  // Recupera o objeto selecionado
+
+    if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
+        ponto->aplicarTransformacao(escala);
+
+        ui->frameDesenho->update();  // Atualiza a tela de desenho
+
+        // Exibe as informações após a transformação
+        qDebug() << "Depois da transformação:";
+        qDebug() << "Posição: (" << ponto->getX() << "," << ponto->getY() << ")";
+        qDebug() << "Cor: " << ponto->getCor().name();  // Cor em hexadecimal
+
+        // Atualiza o ComboBox, caso o cbDisplayFile seja o ComboBox
+        atualizarComboBox();  // Chame um método para atualizar o ComboBox
+    }
+}
+
+// Função para atualizar o ComboBox com os novos dados
+void MainWindow::atualizarComboBox() {
+    ui->cbDisplayFile->clear();  // Limpa o ComboBox
+
+    // Preenche o ComboBox novamente com os objetos atualizados
+    for (const auto& forma : repositorio.obterTodos()) {
+        ui->cbDisplayFile->addItem(forma->toString());  // Supondo que `toString()` retorne uma representação legível
+    }
+
+    // Opcional: Seleciona o item que estava anteriormente selecionado
+    ui->cbDisplayFile->setCurrentIndex(indiceSelecionado);
+}
+
+

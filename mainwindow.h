@@ -30,6 +30,10 @@ private slots:
     // Função para atualizar os campos pela forma selecionada.
     void atualizarCamposForma(const QString& formaSelecionada);
 
+    void on_btnTransformar_clicked();
+
+    void atualizarComboBox();
+
 private:
     Ui::MainWindow *ui;
     QColor corSelecionada;

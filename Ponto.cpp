@@ -4,12 +4,10 @@
 
 // Construtor para ponto 3D
 Ponto::Ponto(int x, int y, int z, QColor cor)
-    : ObjetoGrafico(cor), Matriz(4, 1, 0) {
-    // Inicializa o ponto como uma matriz de coordenadas homogêneas 4x1
-    (*this)[0][0] = x;  // Coordenada X
-    (*this)[1][0] = y;  // Coordenada Y
-    (*this)[2][0] = z;  // Coordenada Z
-    (*this)[3][0] = 1;  // Coordenada homogênea (1 para pontos)
+    : ObjetoGrafico(cor), Matriz(3, 1, 1) {
+    (*this)[0][0] = x;
+    (*this)[1][0] = y;
+    (*this)[2][0] = 1;  // coordenada homogênea
 }
 
 // Construtor para ponto 2D (z=0)
@@ -81,40 +79,19 @@ void Ponto::setZ(int z) {
 }
 
 void Ponto::aplicarTransformacao(const Matriz& transformacao) {
-    try {
-        // Verifica se é necessário adaptar o ponto 2D para 3D
-        bool ponto2D = (getLinhas() == 3);
-        Matriz pontoTemp;
+    int n = this->getLinhas();
 
-        if (ponto2D && transformacao.getLinhas() == 4) {
-            // Converter ponto 2D para 3D temporariamente
-            pontoTemp = Matriz(4, 1, 0);
-            pontoTemp[0][0] = getX();
-            pontoTemp[1][0] = getY();
-            pontoTemp[2][0] = 0;
-            pontoTemp[3][0] = 1;
+    if (transformacao.getColunas() != n || transformacao.getLinhas() != n) {
+        throw std::invalid_argument("A transformação precisa ser uma matriz NxN compatível com o ponto.");
+    }
 
-            // Aplica a transformação
-            pontoTemp = transformacao * pontoTemp;
+    Matriz resultado = transformacao * (*this);  // Multiplica a matriz de transformação pelo ponto
 
-            // Converte de volta para 2D se necessário, ou atualiza para 3D
-            *this = pontoTemp;
-        } else {
-            // Aplica a transformação diretamente
-            Matriz resultado = transformacao * (*this);
-
-            // Atualiza as coordenadas do ponto com o resultado
-            for (int i = 0; i < resultado.getLinhas(); i++) {
-                (*this)[i][0] = resultado[i][0];
-            }
-        }
-
-        // Normaliza as coordenadas homogêneas
-        normalizar();
-    } catch (const std::exception& e) {
-        qDebug("Erro ao aplicar transformação: %s", e.what());
+    for (int i = 0; i < n; ++i) {
+        (*this)[i][0] = resultado[i][0];
     }
 }
+
 
 void Ponto::normalizar() {
     // Obtém o índice do componente homogêneo (última linha)
@@ -149,11 +126,17 @@ bool Ponto::eh3D() const {
 }
 
 Ponto& Ponto::operator=(const Matriz& m) {
-    if (this != &m) {  // Verifica se não é auto-atribuição
-        // Aqui você copia os dados de 'm' para 'this'
+    if (this != &m) {
+        QColor corAtual = getCor();  // Salva a cor atual
+
+        this->redimensionar(m.getLinhas(), m.getColunas());
         for (int i = 0; i < m.getLinhas(); i++) {
-            (*this)[i][0] = m[i][0];  // Atribuindo as coordenadas
+            for (int j = 0; j < m.getColunas(); j++) {
+                (*this)[i][j] = m[i][j];
+            }
         }
+
+        this->setCor(corAtual);  // Restaura a cor
     }
-    return *this;  // Retorna a referência para o próprio objeto
+    return *this;
 }
