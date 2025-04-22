@@ -179,32 +179,68 @@ void MainWindow::on_btnTransformar_clicked()
         QMessageBox::warning(this, "Aviso", "Nenhum objeto selecionado.");
         ui->spinTranslacaoX->setValue(0);
         ui->spinTranslacaoY->setValue(0);
+
+        ui->spinEscalaX->setValue(0);
+        ui->spinEscalaY->setValue(0);
+
+        ui->spinRotacao->setValue(0);
         return;
     }
 
     double tx = ui->spinTranslacaoX->value();
     double ty = ui->spinTranslacaoY->value();
 
-    if (tx == 0 || ty == 0) {
-        QMessageBox::warning(this, "Erro", "Os fatores de translação não podem ser zero.");
+    double ex = ui->spinEscalaX->value();
+    double ey = ui->spinEscalaY->value();
+
+    double ang = ui->spinRotacao->value();
+
+    if (tx == 0 && ty == 0 && ex == 0 && ey == 0 && ang == 0) {
+        QMessageBox::warning(this, "Erro", "Por favor insira algum valor para a transformação.");
         return;
     }
 
     Matriz translacao = Matriz::translacao2D(tx, ty);
+    Matriz escala = Matriz::escala2D(ex, ey);
+    Matriz rotacao = Matriz::rotacao2D(ang);
 
     auto& forma = repositorio.obterTodos().at(indiceSelecionado);  // Recupera o objeto selecionado
 
+
+    if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
+        ponto->aplicarTransformacao(rotacao);
+    } else if (auto* reta = dynamic_cast<Reta*>(forma.get())) {
+        reta->aplicarTransformacao(rotacao);
+    } else if (auto* quadrado = dynamic_cast<Quadrado*>(forma.get())) {
+        quadrado->aplicarTransformacao(rotacao);
+    } else if (auto* triangulo = dynamic_cast<Triangulo*>(forma.get())) {
+        triangulo->aplicarTransformacao(rotacao);
+    }else if (auto* circunferencia = dynamic_cast<Circunferencia*>(forma.get())) {
+        circunferencia->aplicarTransformacao(rotacao);
+    }
+
+    /*
     if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
         ponto->aplicarTransformacao(translacao);
+        ponto->aplicarTransformacao(escala);
+        ponto->aplicarTransformacao(rotacao);
     } else if (auto* reta = dynamic_cast<Reta*>(forma.get())) {
         reta->aplicarTransformacao(translacao);
+        reta->aplicarTransformacao(escala);
+        reta->aplicarTransformacao(rotacao);
     } else if (auto* quadrado = dynamic_cast<Quadrado*>(forma.get())) {
         quadrado->aplicarTransformacao(translacao);
+        quadrado->aplicarTransformacao(escala);
+        quadrado->aplicarTransformacao(rotacao);
     } else if (auto* triangulo = dynamic_cast<Triangulo*>(forma.get())) {
         triangulo->aplicarTransformacao(translacao);
+        triangulo->aplicarTransformacao(escala);
+        triangulo->aplicarTransformacao(rotacao);
     }else if (auto* circunferencia = dynamic_cast<Circunferencia*>(forma.get())) {
         circunferencia->aplicarTransformacao(translacao);
-    }
+        circunferencia->aplicarTransformacao(escala);
+        circunferencia->aplicarTransformacao(rotacao);
+    }*/
 
     atualizarComboBox();  // Chame um método para atualizar o ComboBox
     ui->frameDesenho->update();  // Atualiza a tela de desenho
