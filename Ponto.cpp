@@ -78,16 +78,25 @@ void Ponto::setZ(int z) {
     }
 }
 
-void Ponto::aplicarTransformacao(const Matriz& transformacao) {
+void Ponto::aplicarTransformacao(const Matriz& transformacao, const Ponto& centro) {
     int n = this->getLinhas();
 
     if (transformacao.getColunas() != n || transformacao.getLinhas() != n) {
         throw std::invalid_argument("A transformação precisa ser uma matriz NxN compatível com o ponto.");
     }
 
-    Matriz resultado = transformacao * (*this);  // Multiplica a matriz de transformação pelo ponto
+    // Cria as matrizes de translação para levar ao centro e voltar
+    Matriz T1 = Matriz::translacao2D(-centro.getX(), -centro.getY());
+    Matriz T2 = Matriz::translacao2D(centro.getX(), centro.getY());
 
-    for (int i = 0; i < n; ++i) {
+    // Aplica a transformação composta: T2 * R * T1
+    Matriz composta = T2 * transformacao * T1;
+
+    // Aplica ao ponto
+    Matriz resultado = composta * (*this);
+
+    // Atualiza o ponto
+    for (int i = 0; i < this->getLinhas(); ++i) {
         (*this)[i][0] = resultado[i][0];
     }
 }

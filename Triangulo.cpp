@@ -22,13 +22,18 @@ QString Triangulo::toString() const {
 }
 
 void Triangulo::aplicarTransformacao(const Matriz& transformacao) {
+    // Calcula o centro do triângulo (média das coordenadas dos 3 pontos)
+    int cx = (p1.getX() + p2.getX() + p3.getX()) / 3;
+    int cy = (p1.getY() + p2.getY() + p3.getY()) / 3;
+    Ponto centro(cx, cy, p1.getCor()); // A cor aqui é irrelevante, apenas para construir o objeto
+
     Ponto novoP1 = p1;
     Ponto novoP2 = p2;
     Ponto novoP3 = p3;
 
-    novoP1.aplicarTransformacao(transformacao);
-    novoP2.aplicarTransformacao(transformacao);
-    novoP3.aplicarTransformacao(transformacao);
+    novoP1.aplicarTransformacao(transformacao, centro);
+    novoP2.aplicarTransformacao(transformacao, centro);
+    novoP3.aplicarTransformacao(transformacao, centro);
 
     p1 = novoP1;
     p2 = novoP2;

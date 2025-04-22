@@ -21,11 +21,16 @@ QString Quadrado::toString() const {
 }
 
 void Quadrado::aplicarTransformacao(const Matriz& transformacao) {
+    // Calcula o centro do triângulo (média das coordenadas dos 3 pontos)
+    int cx = (p1.getX() + p2.getX()) / 2;
+    int cy = (p1.getY() + p2.getY()) / 2;
+    Ponto centro(cx, cy, p1.getCor()); // A cor aqui é irrelevante, apenas para construir o objeto
+
     Ponto novoP1 = p1;
     Ponto novoP2 = p2;
 
-    novoP1.aplicarTransformacao(transformacao);
-    novoP2.aplicarTransformacao(transformacao);
+    novoP1.aplicarTransformacao(transformacao, centro);
+    novoP2.aplicarTransformacao(transformacao, centro);
 
     p1 = novoP1;
     p2 = novoP2;

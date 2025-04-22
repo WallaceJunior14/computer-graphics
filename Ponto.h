@@ -26,7 +26,7 @@ public:
     void setZ(int z);
 
     // Métodos para transformações geométricas
-    void aplicarTransformacao(const Matriz& transformacao);
+    void aplicarTransformacao(const Matriz& transformacao, const Ponto& centro);
 
     // Método para normalizar coordenadas homogêneas
     void normalizar();

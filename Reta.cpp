@@ -15,14 +15,14 @@ QString Reta::toString() const {
 }
 
 void Reta::aplicarTransformacao(const Matriz& transformacao) {
-    Ponto novoP1 = p1;
-    Ponto novoP2 = p2;
+    // Calcula o centro da reta (média dos dois pontos)
+    int cx = (p1.getX() + p2.getX()) / 2;
+    int cy = (p1.getY() + p2.getY()) / 2;
+    Ponto centro(cx, cy, p1.getCor());  // cor só por compatibilidade
 
-    novoP1.aplicarTransformacao(transformacao);
-    novoP2.aplicarTransformacao(transformacao);
-
-    p1 = novoP1;
-    p2 = novoP2;
+    // Aplica a transformação em cada ponto em torno do centro
+    p1.aplicarTransformacao(transformacao, centro);
+    p2.aplicarTransformacao(transformacao, centro);
 }
 
 void Reta::normalizar() {

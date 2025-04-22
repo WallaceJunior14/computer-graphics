@@ -25,9 +25,20 @@ QString Circunferencia::toString() const {
 }
 
 void Circunferencia::aplicarTransformacao(const Matriz& transformacao) {
+    // Aplica a transformação ao centro da circunferência
     Ponto novoCentro = p1;
-    novoCentro.aplicarTransformacao(transformacao);
+    novoCentro.aplicarTransformacao(transformacao, p1);
+
+    // Atualiza o centro
     p1 = novoCentro;
+
+    // Escala o raio, assumindo coordenadas homogêneas e transformação 3x3
+    // Pegamos a escala média para manter o raio proporcional
+    double escalaX = transformacao[0][0];
+    double escalaY = transformacao[1][1];
+    double escalaMedia = (std::abs(escalaX) + std::abs(escalaY)) / 2.0;
+
+    raio = static_cast<int>(raio * escalaMedia);  // Mantém o raio positivo e proporcional
 }
 
 void Circunferencia::normalizar() {

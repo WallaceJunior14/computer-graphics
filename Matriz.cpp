@@ -74,11 +74,10 @@ Matriz Matriz::rotacao2D(double anguloGraus) {
     Matriz r = identidade(3);
     double anguloRad = anguloGraus * M_PI / 180.0;
 
-    // Arredondamos para o inteiro mais próximo, já que a classe usa int
-    r[0][0] = static_cast<int>(round(cos(anguloRad)));
-    r[0][1] = static_cast<int>(round(-sin(anguloRad)));
-    r[1][0] = static_cast<int>(round(sin(anguloRad)));
-    r[1][1] = static_cast<int>(round(cos(anguloRad)));
+    r[0][0] = cos(anguloRad);
+    r[0][1] = -sin(anguloRad);
+    r[1][0] = sin(anguloRad);
+    r[1][1] = cos(anguloRad);
 
     return r;
 }
