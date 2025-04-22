@@ -187,25 +187,61 @@ void MainWindow::on_btnTransformar_clicked()
         return;
     }
 
-    double tx = ui->spinTranslacaoX->value();
-    double ty = ui->spinTranslacaoY->value();
+    if(ui->checkBoxTranslacao->isChecked()){
+        double tx = ui->spinTranslacaoX->value();
+        double ty = ui->spinTranslacaoY->value();
 
-    double ex = ui->spinEscalaX->value();
-    double ey = ui->spinEscalaY->value();
+        if (tx == 0 && ty == 0) {
+            QMessageBox::warning(this, "Erro", "Por favor insira algum valor na translação para a transformação.");
+            return;
+        }
 
-    double ang = ui->spinRotacao->value();
+        Matriz translacao = Matriz::translacao2D(tx, ty);
 
+        realizarTransformacao(translacao);
+    }
+
+    if(ui->checkBoxEscala->isChecked()){
+        double ex = ui->spinEscalaX->value();
+        double ey = ui->spinEscalaY->value();
+
+        if (ex == 0 && ey == 0) {
+            QMessageBox::warning(this, "Erro", "Por favor insira algum valor na escala para a transformação.");
+            return;
+        }
+
+        Matriz escala = Matriz::escala2D(ex, ey);
+
+        realizarTransformacao(escala);
+    }
+
+    if(ui->checkBoxRotacao->isChecked()){
+        double ang = ui->spinRotacao->value();
+
+        if (ang == 0) {
+            QMessageBox::warning(this, "Erro", "Por favor insira algum valor na rotação para a transformação.");
+            return;
+        }
+
+        Matriz rotacao = Matriz::rotacao2D(ang);
+
+        realizarTransformacao(rotacao);
+    }
+
+    if(!ui->checkBoxEscala->isChecked() &&
+        !ui->checkBoxRotacao->isChecked() &&
+        !ui->checkBoxTranslacao->isChecked()){
+        QMessageBox::warning(this, "Aviso", "Nenhuma transformação selecionada.");
+        return;
+    }
+
+    /*
     if (tx == 0 && ty == 0 && ex == 0 && ey == 0 && ang == 0) {
         QMessageBox::warning(this, "Erro", "Por favor insira algum valor para a transformação.");
         return;
     }
 
-    Matriz translacao = Matriz::translacao2D(tx, ty);
-    Matriz escala = Matriz::escala2D(ex, ey);
-    Matriz rotacao = Matriz::rotacao2D(ang);
-
     auto& forma = repositorio.obterTodos().at(indiceSelecionado);  // Recupera o objeto selecionado
-
 
     if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
         ponto->aplicarTransformacao(rotacao);
@@ -217,7 +253,7 @@ void MainWindow::on_btnTransformar_clicked()
         triangulo->aplicarTransformacao(rotacao);
     }else if (auto* circunferencia = dynamic_cast<Circunferencia*>(forma.get())) {
         circunferencia->aplicarTransformacao(rotacao);
-    }
+    }*/
 
     /*
     if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
@@ -258,6 +294,22 @@ void MainWindow::atualizarComboBox() {
 
     // Opcional: Seleciona o item que estava anteriormente selecionado
     ui->cbDisplayFile->setCurrentIndex(indiceSelecionado);
+}
+
+void MainWindow::realizarTransformacao(Matriz transformacao){
+    auto& forma = repositorio.obterTodos().at(indiceSelecionado);  // Recupera o objeto selecionado
+
+    if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
+        ponto->aplicarTransformacao(transformacao);
+    } else if (auto* reta = dynamic_cast<Reta*>(forma.get())) {
+        reta->aplicarTransformacao(transformacao);
+    } else if (auto* quadrado = dynamic_cast<Quadrado*>(forma.get())) {
+        quadrado->aplicarTransformacao(transformacao);
+    } else if (auto* triangulo = dynamic_cast<Triangulo*>(forma.get())) {
+        triangulo->aplicarTransformacao(transformacao);
+    }else if (auto* circunferencia = dynamic_cast<Circunferencia*>(forma.get())) {
+        circunferencia->aplicarTransformacao(transformacao);
+    }
 }
 
 
