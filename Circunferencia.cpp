@@ -27,7 +27,6 @@ QString Circunferencia::toString() const {
 void Circunferencia::aplicarTransformacao(const Matriz& transformacao) {
     Ponto novoCentro = p1;
     novoCentro.aplicarTransformacao(transformacao);
-    this->setRaio(this->getRaio()*transformacao[0][0]);
     p1 = novoCentro;
 }
 

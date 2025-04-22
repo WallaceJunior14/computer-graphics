@@ -182,28 +182,28 @@ void MainWindow::on_btnTransformar_clicked()
         return;
     }
 
-    double sx = ui->spinTranslacaoX->value();
-    double sy = ui->spinTranslacaoY->value();
+    double tx = ui->spinTranslacaoX->value();
+    double ty = ui->spinTranslacaoY->value();
 
-    if (sx == 0 || sy == 0) {
-        QMessageBox::warning(this, "Erro", "Os fatores de escala não podem ser zero.");
+    if (tx == 0 || ty == 0) {
+        QMessageBox::warning(this, "Erro", "Os fatores de translação não podem ser zero.");
         return;
     }
 
-    Matriz escala = Matriz::escala2D(sx, sy);
+    Matriz translacao = Matriz::translacao2D(tx, ty);
 
     auto& forma = repositorio.obterTodos().at(indiceSelecionado);  // Recupera o objeto selecionado
 
     if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
-        ponto->aplicarTransformacao(escala);
+        ponto->aplicarTransformacao(translacao);
     } else if (auto* reta = dynamic_cast<Reta*>(forma.get())) {
-        reta->aplicarTransformacao(escala);
+        reta->aplicarTransformacao(translacao);
     } else if (auto* quadrado = dynamic_cast<Quadrado*>(forma.get())) {
-        quadrado->aplicarTransformacao(escala);
+        quadrado->aplicarTransformacao(translacao);
     } else if (auto* triangulo = dynamic_cast<Triangulo*>(forma.get())) {
-        triangulo->aplicarTransformacao(escala);
+        triangulo->aplicarTransformacao(translacao);
     }else if (auto* circunferencia = dynamic_cast<Circunferencia*>(forma.get())) {
-        circunferencia->aplicarTransformacao(escala);
+        circunferencia->aplicarTransformacao(translacao);
     }
 
     atualizarComboBox();  // Chame um método para atualizar o ComboBox
