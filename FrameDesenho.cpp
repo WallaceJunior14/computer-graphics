@@ -25,7 +25,7 @@ void FrameDesenho::paintEvent(QPaintEvent* event) {
     }
 }
 
-void FrameDesenho::adicionarForma(const QString& tipo, int x1, int y1, int x2, int y2, int x3, int y3, int raio, QColor cor, int indice) {
+void FrameDesenho::adicionarForma(const QString& tipo, double x1, double y1, double x2, double y2, double x3, double y3, double raio, QColor cor, int indice) {
     if (!repo || !cor.isValid()) return;
 
     ObjetoGrafico* objeto = nullptr;

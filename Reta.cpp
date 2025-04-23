@@ -16,8 +16,8 @@ QString Reta::toString() const {
 
 void Reta::aplicarTransformacao(const Matriz& transformacao) {
     // Calcula o centro da reta (média dos dois pontos)
-    int cx = (p1.getX() + p2.getX()) / 2;
-    int cy = (p1.getY() + p2.getY()) / 2;
+    double cx = (p1.getX() + p2.getX()) / 2.0;
+    double cy = (p1.getY() + p2.getY()) / 2.0;
     Ponto centro(cx, cy, p1.getCor());  // cor só por compatibilidade
 
     // Aplica a transformação em cada ponto em torno do centro

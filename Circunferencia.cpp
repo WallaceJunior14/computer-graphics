@@ -2,7 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-Circunferencia::Circunferencia(const Ponto& ponto1, int raio, const QColor& cor)
+Circunferencia::Circunferencia(const Ponto& ponto1, double raio, const QColor& cor)
     : ObjetoGrafico(cor), p1(ponto1), raio(raio), cor(cor) {}
 
 void Circunferencia::desenhar(QPainter& painter) const {
@@ -10,8 +10,8 @@ void Circunferencia::desenhar(QPainter& painter) const {
 
     int numPoints = 10000;
     for (int i = 0; i < numPoints; ++i) {
-        int x1 = p1.getX() + int(raio * cos(i * 2 * M_PI / numPoints));
-        int y1 = p1.getY() + int(raio * sin(i * 2 * M_PI / numPoints));
+        double x1 = p1.getX() + double(raio * cos(i * 2 * M_PI / numPoints));
+        double y1 = p1.getY() + double(raio * sin(i * 2 * M_PI / numPoints));
         painter.drawLine(x1, y1, x1, y1);
     }
 }
@@ -25,20 +25,19 @@ QString Circunferencia::toString() const {
 }
 
 void Circunferencia::aplicarTransformacao(const Matriz& transformacao) {
-    // Aplica a transformação ao centro da circunferência
+    // Cria um ponto auxiliar na borda da circunferência (lado direito do centro)
+    Ponto pontoRaio(p1.getX() + raio, p1.getY(), p1.getCor());
+
+    // Aplica a transformação ao centro e ao ponto na borda
     Ponto novoCentro = p1;
     novoCentro.aplicarTransformacao(transformacao, p1);
+    pontoRaio.aplicarTransformacao(transformacao, p1); // Usa o mesmo centro original
 
     // Atualiza o centro
     p1 = novoCentro;
 
-    // Escala o raio, assumindo coordenadas homogêneas e transformação 3x3
-    // Pegamos a escala média para manter o raio proporcional
-    double escalaX = transformacao[0][0];
-    double escalaY = transformacao[1][1];
-    double escalaMedia = (std::abs(escalaX) + std::abs(escalaY)) / 2.0;
-
-    raio = static_cast<int>(raio * escalaMedia);  // Mantém o raio positivo e proporcional
+    // Recalcula o raio com base na nova distância do centro ao ponto da borda
+    raio = static_cast<int>(novoCentro.distancia(pontoRaio));
 }
 
 void Circunferencia::normalizar() {

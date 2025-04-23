@@ -22,8 +22,8 @@ QString Quadrado::toString() const {
 
 void Quadrado::aplicarTransformacao(const Matriz& transformacao) {
     // Calcula o centro do quadrado (média das coordenadas dos 2 pontos)
-    int cx = (p1.getX() + p2.getX()) / 2;
-    int cy = (p1.getY() + p2.getY()) / 2;
+    double cx = (p1.getX() + p2.getX()) / 2.0;
+    double cy = (p1.getY() + p2.getY()) / 2.0;
     Ponto centro(cx, cy, p1.getCor()); // A cor aqui é irrelevante, apenas para construir o objeto
 
     Ponto novoP1 = p1;

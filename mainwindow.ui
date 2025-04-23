@@ -58,9 +58,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinX1">
+      <widget class="QDoubleSpinBox" name="spinX1">
        <property name="maximum">
-        <number>600</number>
+        <double>600.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -72,9 +72,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinY1">
+      <widget class="QDoubleSpinBox" name="spinY1">
        <property name="maximum">
-        <number>600</number>
+        <double>600.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -86,9 +86,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinX2">
+      <widget class="QDoubleSpinBox" name="spinX2">
        <property name="maximum">
-        <number>600</number>
+        <double>600.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -100,9 +100,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinY2">
+      <widget class="QDoubleSpinBox" name="spinY2">
        <property name="maximum">
-        <number>600</number>
+        <double>600.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -117,12 +117,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinX3">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
+      <widget class="QDoubleSpinBox" name="spinX3">
        <property name="maximum">
-        <number>600</number>
+        <double>600.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -137,12 +134,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinY3">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
+      <widget class="QDoubleSpinBox" name="spinY3">
        <property name="maximum">
-        <number>600</number>
+        <double>600.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -154,7 +148,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinRaio"/>
+      <widget class="QDoubleSpinBox" name="spinRaio">
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnCor">
@@ -241,16 +239,22 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QSpinBox" name="spinTranslacaoX">
+        <widget class="QDoubleSpinBox" name="spinTranslacaoX">
          <property name="minimum">
-          <number>-99</number>
+          <double>-100.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>100.000000000000000</double>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QSpinBox" name="spinTranslacaoY">
+        <widget class="QDoubleSpinBox" name="spinTranslacaoY">
          <property name="minimum">
-          <number>-99</number>
+          <double>-100.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>100.000000000000000</double>
          </property>
         </widget>
        </item>

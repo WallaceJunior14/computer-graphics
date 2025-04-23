@@ -42,10 +42,10 @@ void MainWindow::on_btnDesenhar_clicked() {
         return;
     }
 
-    int x1 = ui->spinX1->value(), y1 = ui->spinY1->value();
-    int x2 = ui->spinX2->value(), y2 = ui->spinY2->value();
-    int x3 = ui->spinX3->value(), y3 = ui->spinY3->value();
-    int raio = ui->spinRaio->value();
+    double x1 = ui->spinX1->value(), y1 = ui->spinY1->value();
+    double x2 = ui->spinX2->value(), y2 = ui->spinY2->value();
+    double x3 = ui->spinX3->value(), y3 = ui->spinY3->value();
+    double raio = ui->spinRaio->value();
 
     ui->frameDesenho->adicionarForma(forma, x1, y1, x2, y2, x3, y3, raio, corSelecionada, indiceSelecionado);
 
@@ -195,8 +195,8 @@ void MainWindow::on_btnTransformar_clicked()
         double ex = ui->spinEscalaX->value();
         double ey = ui->spinEscalaY->value();
 
-        if (ex == 0 && ey == 0) {
-            QMessageBox::warning(this, "Erro", "Por favor insira algum valor na escala para a transformação.");
+        if (ex == 0 || ey == 0) {
+            QMessageBox::warning(this, "Erro", "Por favor, não insira 0 para a transformação.");
             return;
         }
 

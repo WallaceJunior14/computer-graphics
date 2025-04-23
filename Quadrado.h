@@ -7,9 +7,11 @@
 
 class Quadrado : public ObjetoGrafico {
 public:
+    // Construtor
     Quadrado(const Ponto& ponto1, const Ponto& ponto2, const QColor& cor);
     ~Quadrado() override = default;
 
+    // Função para desenhar
     void desenhar(QPainter& painter) const override;
 
     // Transformações e verificação
@@ -19,7 +21,7 @@ public:
 
     QString toString() const override;
 
-    // setters e getters
+    // Getters
     Ponto getP1() const { return p1; }
     Ponto getP2() const { return p2; }
 

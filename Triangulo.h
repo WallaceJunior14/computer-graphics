@@ -19,7 +19,7 @@ public:
     void normalizar();
     bool eh3D() const;
 
-    // Setters e Getters
+    // Getters
     Ponto getP1() const { return p1; }
     Ponto getP2() const { return p2; }
     Ponto getP3() const { return p3; }

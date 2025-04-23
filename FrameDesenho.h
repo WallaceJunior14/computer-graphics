@@ -13,10 +13,10 @@ public:
 
     // Cria ou Atualiza a forma e guarda no repositório.
     void adicionarForma(const QString& tipo,
-                        int x1, int y1,
-                        int x2 = 0, int y2 = 0,
-                        int x3 = 0, int y3 = 0,
-                        int raio = 0,
+                        double x1, double y1,
+                        double x2 = 0, double y2 = 0,
+                        double x3 = 0, double y3 = 0,
+                        double raio = 0,
                         QColor cor = Qt::black,
                         int indice = -1);
 

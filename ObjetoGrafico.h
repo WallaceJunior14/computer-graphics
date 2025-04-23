@@ -9,8 +9,8 @@
 class ObjetoGrafico {
 protected:
     QColor cor;
-    int tamanho;
-    int raio;
+    double tamanho;
+    double raio;
 
 public:
     ObjetoGrafico(){};
@@ -27,11 +27,11 @@ public:
     virtual QColor getCor() const { return cor; }
     virtual void setCor(const QColor& novaCor) { cor = novaCor; }
 
-    virtual int getTamanho() const { return tamanho; }
-    virtual void setTamanho(int novoTamanho) { tamanho = novoTamanho; }
+    virtual double getTamanho() const { return tamanho; }
+    virtual void setTamanho(double novoTamanho) { tamanho = novoTamanho; }
 
-    virtual int getRaio() const { return raio; }
-    virtual void setRaio(int novoRaio) { tamanho = novoRaio; }
+    virtual double getRaio() const { return raio; }
+    virtual void setRaio(double novoRaio) { tamanho = novoRaio; }
 
     virtual QPen getPen() const {
         QPen pen(cor);

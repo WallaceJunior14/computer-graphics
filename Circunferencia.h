@@ -7,7 +7,7 @@
 
 class Circunferencia : public ObjetoGrafico {
 public:
-    Circunferencia(const Ponto& ponto1, int raio, const QColor& cor);
+    Circunferencia(const Ponto& ponto1, double raio, const QColor& cor);
     ~Circunferencia() override = default;
 
     // Sobrescrita das funções da classe ObjetoGrafico
@@ -16,7 +16,7 @@ public:
 
     // Getters
     Ponto getP1() const { return p1; }
-    int getRaio() const { return raio; }
+    double getRaio() const { return raio; }
 
     // Métodos de transformação
     void aplicarTransformacao(const Matriz& transformacao);
@@ -25,7 +25,7 @@ public:
 
 private:
     Ponto p1;
-    int raio;
+    double raio;
     QColor cor;
 };
 

@@ -25,7 +25,10 @@ private slots:
     // Botão para selecionar cor
     void on_btnCor_clicked();
 
+    // Função para índice atual
     void on_cbDisplayFile_currentIndexChanged(int index);
+
+    // Botão para excluir forma
     void on_btnExcluirForma_clicked();
 
     // Função para resetar a seleção da displayFile na tela.
