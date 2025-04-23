@@ -19,9 +19,12 @@ public:
     ~MainWindow();
 
 private slots:
+    // Botão para adicionar (desenhar) forma
     void on_btnDesenhar_clicked();
+
+    // Botão para selecionar cor
     void on_btnCor_clicked();
-    void on_btnMostrar_clicked();
+
     void on_cbDisplayFile_currentIndexChanged(int index);
     void on_btnExcluirForma_clicked();
 
@@ -31,10 +34,13 @@ private slots:
     // Função para atualizar os campos pela forma selecionada.
     void atualizarCamposForma(const QString& formaSelecionada);
 
+    // Botão para as trasnformações geométricas
     void on_btnTransformar_clicked();
 
+    // Função para atualizar combo box
     void atualizarComboBox();
 
+    // Função para realizar as transformações geométricas
     void realizarTransformacao(Matriz transformacao);
 
 private:

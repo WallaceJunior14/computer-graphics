@@ -177,13 +177,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="btnMostrar">
-       <property name="text">
-        <string>Mostrar</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
    <widget class="QComboBox" name="cbDisplayFile">
@@ -248,10 +241,18 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QDoubleSpinBox" name="spinTranslacaoX"/>
+        <widget class="QSpinBox" name="spinTranslacaoX">
+         <property name="minimum">
+          <number>-99</number>
+         </property>
+        </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QDoubleSpinBox" name="spinTranslacaoY"/>
+        <widget class="QSpinBox" name="spinTranslacaoY">
+         <property name="minimum">
+          <number>-99</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

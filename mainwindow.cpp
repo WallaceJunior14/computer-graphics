@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Conecta o repositório ao frame
     ui->frameDesenho->setRepositorio(&repositorio);
 
-    // Log -> mostrar lista dos objetos no repositorio : desativado
-    ui->btnMostrar->hide();
-
     // Carrega as formas disponíveis
     ui->comboFormas->addItems(FormaFactory::instance().nomesFormas());
 
@@ -64,12 +61,6 @@ void MainWindow::on_btnCor_clicked() {
     if (novaCor.isValid()) {
         corSelecionada = novaCor;
         qDebug() << "Cor selecionada:" << corSelecionada.name();
-    }
-}
-
-void MainWindow::on_btnMostrar_clicked() {
-    for (const auto& forma : repositorio.obterTodos()) {
-        qDebug() << forma->toString();
     }
 }
 
