@@ -169,15 +169,49 @@ void MainWindow::on_btnTransformar_clicked()
         QMessageBox::warning(this, "Aviso", "Nenhum objeto selecionado.");
         ui->spinTranslacaoX->setValue(0);
         ui->spinTranslacaoY->setValue(0);
-
         ui->spinEscalaX->setValue(0);
         ui->spinEscalaY->setValue(0);
-
         ui->spinRotacao->setValue(0);
         return;
     }
 
-    if(ui->checkBoxTranslacao->isChecked()){
+    if (!ui->checkBoxEscala->isChecked() &&
+        !ui->checkBoxRotacao->isChecked() &&
+        !ui->checkBoxTranslacao->isChecked()) {
+        QMessageBox::warning(this, "Aviso", "Nenhuma transformação selecionada.");
+        return;
+    }
+
+    // Matriz identidade como ponto de partida
+    Matriz transformacao = Matriz::identidade(3);
+
+    // Compor transformações na ordem desejada: escala → rotação → translação
+    if (ui->checkBoxEscala->isChecked()) {
+        double ex = ui->spinEscalaX->value();
+        double ey = ui->spinEscalaY->value();
+
+        if (ex == 0 || ey == 0) {
+            QMessageBox::warning(this, "Erro", "Por favor, não insira 0 para a transformação de escala.");
+            return;
+        }
+
+        Matriz escala = Matriz::escala2D(ex, ey);
+        transformacao = escala * transformacao;  // composição à esquerda
+    }
+
+    if (ui->checkBoxRotacao->isChecked()) {
+        double ang = ui->spinRotacao->value();
+
+        if (ang == 0) {
+            QMessageBox::warning(this, "Erro", "Por favor insira algum valor na rotação para a transformação.");
+            return;
+        }
+
+        Matriz rotacao = Matriz::rotacao2D(ang);
+        transformacao = rotacao * transformacao;
+    }
+
+    if (ui->checkBoxTranslacao->isChecked()) {
         double tx = ui->spinTranslacaoX->value();
         double ty = ui->spinTranslacaoY->value();
 
@@ -187,49 +221,17 @@ void MainWindow::on_btnTransformar_clicked()
         }
 
         Matriz translacao = Matriz::translacao2D(tx, ty);
-
-        realizarTransformacao(translacao);
+        transformacao = translacao * transformacao;
     }
 
-    if(ui->checkBoxEscala->isChecked()){
-        double ex = ui->spinEscalaX->value();
-        double ey = ui->spinEscalaY->value();
+    // Aplicar a matriz composta
+    realizarTransformacao(transformacao);
 
-        if (ex == 0 || ey == 0) {
-            QMessageBox::warning(this, "Erro", "Por favor, não insira 0 para a transformação.");
-            return;
-        }
-
-        Matriz escala = Matriz::escala2D(ex, ey);
-
-        realizarTransformacao(escala);
-    }
-
-
-    if(ui->checkBoxRotacao->isChecked()){
-        double ang = ui->spinRotacao->value();
-
-        if (ang == 0) {
-            QMessageBox::warning(this, "Erro", "Por favor insira algum valor na rotação para a transformação.");
-            return;
-        }
-
-        Matriz rotacao = Matriz::rotacao2D(ang);
-
-        realizarTransformacao(rotacao);
-    }
-
-    if(!ui->checkBoxEscala->isChecked() &&
-        !ui->checkBoxRotacao->isChecked() &&
-        !ui->checkBoxTranslacao->isChecked()){
-        QMessageBox::warning(this, "Aviso", "Nenhuma transformação selecionada.");
-        return;
-    }
-
-    atualizarComboBox();  // Chame um método para atualizar o ComboBox
-    ui->frameDesenho->update();  // Atualiza a tela de desenho
+    atualizarComboBox();  // Atualiza a comboBox
+    ui->frameDesenho->update();  // Atualiza a área de desenho
     resetarSelecao();
 }
+
 
 // Função para atualizar o ComboBox com os novos dados
 void MainWindow::atualizarComboBox() {
