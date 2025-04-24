@@ -1,14 +1,16 @@
 #include "Quadrado.h"
+#include <QDebug>
 
-Quadrado::Quadrado(const Ponto& ponto1, const Ponto& ponto2, const QColor& cor)
-    : ObjetoGrafico(cor), p1(ponto1), p2(ponto2), cor(cor) {}
+Quadrado::Quadrado(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, const Ponto& ponto4, const QColor& cor)
+    : ObjetoGrafico(cor), p1(ponto1), p2(ponto2), p3(ponto3), p4(ponto4), cor(cor) {}
 
 void Quadrado::desenhar(QPainter& painter) const {
     painter.setPen(getPen());
-    painter.drawLine(p1.getX(), p1.getY(), p1.getX(), p2.getY()); // lado esquerdo
-    painter.drawLine(p1.getX(), p2.getY(), p2.getX(), p2.getY()); // lado inferior
-    painter.drawLine(p2.getX(), p2.getY(), p2.getX(), p1.getY()); // lado direito
-    painter.drawLine(p2.getX(), p1.getY(), p1.getX(), p1.getY()); // lado superior
+
+    painter.drawLine(p1.getX(),p1.getY(),p3.getX(),p3.getY());
+    painter.drawLine(p3.getX(),p3.getY(),p2.getX(),p2.getY());
+    painter.drawLine(p2.getX(),p2.getY(),p4.getX(),p4.getY());
+    painter.drawLine(p4.getX(),p4.getY(),p1.getX(),p1.getY());
 }
 
 QString Quadrado::toString() const {
@@ -28,12 +30,18 @@ void Quadrado::aplicarTransformacao(const Matriz& transformacao) {
 
     Ponto novoP1 = p1;
     Ponto novoP2 = p2;
+    Ponto novoP3 = p3;
+    Ponto novoP4 = p4;
 
     novoP1.aplicarTransformacao(transformacao, centro);
     novoP2.aplicarTransformacao(transformacao, centro);
+    novoP3.aplicarTransformacao(transformacao, centro);
+    novoP4.aplicarTransformacao(transformacao, centro);
 
     p1 = novoP1;
     p2 = novoP2;
+    p3 = novoP3;
+    p4 = novoP4;
 }
 
 void Quadrado::normalizar() {

@@ -27,7 +27,9 @@ int main(int argc, char *argv[])
     FormaFactory::instance().registrarComplexa("Quadrado", [](double x1, double y1, double x2, double y2, const QColor& cor) {
         Ponto p1(x1, y1, cor);
         Ponto p2(x2, y2, cor);
-        return new Quadrado(p1, p2, cor);
+        Ponto p3(x1, y2, cor);
+        Ponto p4(x2, y1, cor);
+        return new Quadrado(p1, p2, p3, p4, cor);
     });
 
     FormaFactory::instance().registrarCircunferencia("Circunferencia", [](double x1, double y1, double raio, const QColor& cor) {
