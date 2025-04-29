@@ -12,7 +12,7 @@ public:
     ~Quadrado() override = default;
 
     // Função para desenhar
-    void desenhar(QPainter& painter) const override;
+    void desenhar(QPainter& painter, MainWindow* mainWindow) const override;
 
     // Transformações e verificação
     void aplicarTransformacao(const Matriz& transformacao);

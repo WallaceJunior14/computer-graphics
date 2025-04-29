@@ -18,40 +18,42 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    // Botão para adicionar (desenhar) forma
-    void on_btnDesenhar_clicked();
+    // Parâmetros da Window (em unidades do mundo - cm)
+    double wxmin = -5.0;
+    double wymin = -5.0;
+    double wxmax = 15.0;
+    double wymax = 15.0;
 
-    // Botão para selecionar cor
-    void on_btnCor_clicked();
+    // Parâmetros da Viewport (em pixels do FrameDesenho)
+    int vxmin = 0;
+    int vymin = 0;
+    int vxmax = 400; // tamanho padrão inicial do FrameDesenho
+    int vymax = 400;
 
-    // Função para índice atual
-    void on_cbDisplayFile_currentIndexChanged(int index);
-
-    // Botão para excluir forma
-    void on_btnExcluirForma_clicked();
-
-    // Função para resetar a seleção da displayFile na tela.
-    void resetarSelecao();
-
-    // Função para atualizar os campos pela forma selecionada.
-    void atualizarCamposForma(const QString& formaSelecionada);
-
-    // Botão para as trasnformações geométricas
-    void on_btnTransformar_clicked();
-
-    // Função para atualizar combo box
-    void atualizarComboBox();
-
-    // Função para realizar as transformações geométricas
-    void realizarTransformacao(Matriz transformacao);
+    QPoint transformarCoordenada(double x, double y) const;
 
 private:
     Ui::MainWindow *ui;
     QColor corSelecionada;
     int indiceSelecionado;
     RepositorioObjetos repositorio;
+
+    // Funções auxiliares
     void atualizarCBDisplayFile();
+    void resetarSelecao();
+    void atualizarCamposForma(const QString& formaSelecionada);
+    void atualizarComboBox();
+    void realizarTransformacao(Matriz transformacao);
+
+private slots:
+    void on_btnDesenhar_clicked();
+    void on_btnCor_clicked();
+    void on_cbDisplayFile_currentIndexChanged(int index);
+    void on_btnExcluirForma_clicked();
+    void on_btnTransformar_clicked();
+    void on_windowParametrosAlterados();
+    void on_viewportParametrosAlterados();
+    void on_spinWxMin_valueChanged(double arg1);
 };
 
 #endif // MAINWINDOW_H

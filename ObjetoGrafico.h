@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QString>
 #include <QColor>
+class MainWindow;
 
 // Classe abstrata para as formas (ponto, reta...).
 class ObjetoGrafico {
@@ -18,7 +19,7 @@ public:
     virtual ~ObjetoGrafico() = default;
 
     // Função para desenhar no frame.
-    virtual void desenhar(QPainter& painter) const = 0;
+    virtual void desenhar(QPainter& painter, MainWindow* mainWindow) const = 0;
 
     // Função para pegar todas as informações do objeto;.
     virtual QString toString() const = 0;

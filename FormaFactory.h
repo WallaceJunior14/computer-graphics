@@ -6,18 +6,19 @@
 #include <QMap>
 #include <functional>
 #include <memory>
+
 #include "Ponto.h"
 #include "Reta.h"
 #include "Triangulo.h"
 #include "Quadrado.h"
 #include "Circunferencia.h"
 
-// Design Pattern -> Factory: serve para registrar as formas na main;
+// Design Pattern -> Factory: gerencia registro e criação de formas
 class FormaFactory {
 public:
     using CriadorFormaSimples = std::function<ObjetoGrafico*(double x, double y, const QColor&)>;
     using CriadorFormaComplexa = std::function<ObjetoGrafico*(double x1, double y1, double x2, double y2, const QColor&)>;
-    using CriadorFormaTriangulo = std::function<ObjetoGrafico*(double x1, double y1, double x2, double y2, double x3, int y3, const QColor&)>;
+    using CriadorFormaTriangulo = std::function<ObjetoGrafico*(double x1, double y1, double x2, double y2, double x3, double y3, const QColor&)>;
     using CriadorFormaCircunferencia = std::function<ObjetoGrafico*(double x1, double y1, double raio, const QColor&)>;
 
     static FormaFactory& instance() {
@@ -49,32 +50,30 @@ public:
         return nomes;
     }
 
-    // Para formas simples
-    ObjetoGrafico* criar(const QString& nome, double x, double y, const QColor& cor) {
+    // Métodos separados para criar cada tipo de forma:
+
+    ObjetoGrafico* criarSimples(const QString& nome, double x, double y, const QColor& cor) {
         if (formasSimples.contains(nome)) {
             return formasSimples[nome](x, y, cor);
         }
         return nullptr;
     }
 
-    // Para formas complexas
-    ObjetoGrafico* criar(const QString& nome, double x1, double y1, double x2, double y2, const QColor& cor) {
+    ObjetoGrafico* criarComplexa(const QString& nome, double x1, double y1, double x2, double y2, const QColor& cor) {
         if (formasComplexas.contains(nome)) {
             return formasComplexas[nome](x1, y1, x2, y2, cor);
         }
         return nullptr;
     }
 
-    // Para formas triangulo
-    ObjetoGrafico* criar(const QString& nome, double x1, double y1, double x2, double y2, double x3, double y3, const QColor& cor) {
+    ObjetoGrafico* criarTriangulo(const QString& nome, double x1, double y1, double x2, double y2, double x3, double y3, const QColor& cor) {
         if (formasTriangulo.contains(nome)) {
             return formasTriangulo[nome](x1, y1, x2, y2, x3, y3, cor);
         }
         return nullptr;
     }
 
-    // Para formas circunferencia
-    ObjetoGrafico* criar(const QString& nome, double x1, double y1, double raio, const QColor& cor) {
+    ObjetoGrafico* criarCircunferencia(const QString& nome, double x1, double y1, double raio, const QColor& cor) {
         if (formasCircunferencia.contains(nome)) {
             return formasCircunferencia[nome](x1, y1, raio, cor);
         }
@@ -82,6 +81,8 @@ public:
     }
 
 private:
+    FormaFactory() = default; // Construtor privado para Singleton
+
     QMap<QString, CriadorFormaSimples> formasSimples;
     QMap<QString, CriadorFormaComplexa> formasComplexas;
     QMap<QString, CriadorFormaTriangulo> formasTriangulo;

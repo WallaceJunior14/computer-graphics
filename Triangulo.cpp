@@ -1,13 +1,19 @@
 #include "Triangulo.h"
+#include "mainwindow.h"
 
 Triangulo::Triangulo(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, const QColor& cor)
     : ObjetoGrafico(cor), p1(ponto1), p2(ponto2), p3(ponto3), cor(cor) {}
 
-void Triangulo::desenhar(QPainter& painter) const {
+void Triangulo::desenhar(QPainter& painter, MainWindow* mainWindow) const {
     painter.setPen(getPen());
-    painter.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-    painter.drawLine(p2.getX(), p2.getY(), p3.getX(), p3.getY());
-    painter.drawLine(p3.getX(), p3.getY(), p1.getX(), p1.getY());
+
+    QPoint p1_ = mainWindow->transformarCoordenada(p1.getX(), p1.getY());
+    QPoint p2_ = mainWindow->transformarCoordenada(p2.getX(), p2.getY());
+    QPoint p3_ = mainWindow->transformarCoordenada(p3.getX(), p3.getY());
+
+    painter.drawLine(p1_, p2_);
+    painter.drawLine(p2_, p3_);
+    painter.drawLine(p3_, p1_);
 }
 
 QString Triangulo::toString() const {

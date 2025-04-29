@@ -1,7 +1,8 @@
 #ifndef TRIANGULO_H
 #define TRIANGULO_H
 
-#include "ObjetoGrafico.h"
+#include "FrameDesenho.h"
+#include "mainwindow.h"
 #include "Ponto.h"
 #include <memory>
 
@@ -11,7 +12,7 @@ public:
     ~Triangulo() override = default;
 
     // Sobreescrita das fuções dentro da classe ObjetoGrafico
-    void desenhar(QPainter& painter) const override;
+    void desenhar(QPainter& painter, MainWindow* mainWindow) const override;
     QString toString() const override;
 
     // Métodos de transformação

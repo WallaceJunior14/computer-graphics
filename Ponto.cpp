@@ -1,4 +1,5 @@
 #include "Ponto.h"
+#include "mainwindow.h"
 #include <QDebug>
 #include <cmath>
 
@@ -16,11 +17,11 @@ Ponto::Ponto(double x, double y, QColor cor)
     // Chama o construtor 3D com z=0
 }
 
-void Ponto::desenhar(QPainter& painter) const {
+void Ponto::desenhar(QPainter& painter, MainWindow* mainWindow) const {
     painter.setPen(getPen());
-    // Simplesmente desenha no plano 2D (ignorando a coordenada Z)
-    // Em uma aplicação real, você provavelmente iria projetar o ponto 3D para 2D antes de desenhar
-    painter.drawPoint(getX(), getY());
+
+    QPoint p_ = mainWindow->transformarCoordenada(getX(), getY());
+    painter.drawPoint(p_);
 }
 
 QString Ponto::toString() const {

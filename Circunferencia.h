@@ -11,7 +11,7 @@ public:
     ~Circunferencia() override = default;
 
     // Sobrescrita das funções da classe ObjetoGrafico
-    void desenhar(QPainter& painter) const override;
+    void desenhar(QPainter& painter, MainWindow* mainWindow) const override;
     QString toString() const override;
 
     // Getters

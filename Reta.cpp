@@ -1,12 +1,17 @@
 #include "Reta.h"
+#include "mainwindow.h"
 #include <QDebug>
 
 Reta::Reta(const Ponto& ponto1, const Ponto& ponto2, const QColor& cor)
     :ObjetoGrafico(cor), p1(ponto1), p2(ponto2) {}
 
-void Reta::desenhar(QPainter& painter) const {
+void Reta::desenhar(QPainter& painter, MainWindow* mainWindow) const {
     painter.setPen(getPen());
-    painter.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+
+    QPoint p1_ = mainWindow->transformarCoordenada(p1.getX(), p1.getY());
+    QPoint p2_ = mainWindow->transformarCoordenada(p2.getX(), p2.getY());
+
+    painter.drawLine(p1_, p2_);
 }
 
 QString Reta::toString() const {

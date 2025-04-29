@@ -10,7 +10,7 @@ public:
     Reta(const Ponto& ponto1, const Ponto& ponto2, const QColor& cor);
 
     // Sobreescrita das fuções dentro da classe ObjetoGrafico
-    void desenhar(QPainter& painter) const override;
+    void desenhar(QPainter& painter, MainWindow* mainWindow) const override;
     QString toString() const override;
 
     // Manipulção 3D
