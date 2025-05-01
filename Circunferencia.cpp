@@ -6,24 +6,15 @@
 Circunferencia::Circunferencia(const Ponto& ponto1, double raio, const QColor& cor)
     : ObjetoGrafico(cor), p1(ponto1), raio(raio), cor(cor) {}
 
-void Circunferencia::desenhar(QPainter& painter, MainWindow* mainWindow) const {
+void Circunferencia::desenhar(QPainter& painter) const {
     painter.setPen(getPen());
 
-    int numPoints = 1000; // 10000 é exagero, 1000 já é bem suave visualmente
-    QPoint anterior = mainWindow->transformarCoordenada(
-        p1.getX() + raio * cos(0),
-        p1.getY() + raio * sin(0)
-        );
+    int numPoints = 1000;
 
-    for (int i = 1; i <= numPoints; ++i) {
-        double angulo = i * 2 * M_PI / numPoints;
-        double x = p1.getX() + raio * cos(angulo);
-        double y = p1.getY() + raio * sin(angulo);
-
-        QPoint atual = mainWindow->transformarCoordenada(x, y);
-
-        painter.drawLine(anterior, atual);
-        anterior = atual;
+    for (int i = 0; i < numPoints; ++i) {
+        double x1 = p1.getX() + double(raio * cos(i * 2 * M_PI / numPoints));
+        double y1 = p1.getY() + double(raio * sin(i * 2 * M_PI / numPoints));
+        painter.drawLine(x1, y1, x1, y1);
     }
 }
 

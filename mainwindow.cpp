@@ -14,16 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    wxmin = -5;
-    wymin = -5;
-    wxmax = 15;
-    wymax = 15;
-
-    vxmin = 0;
-    vymin = 0;
-    vxmax = 400;
-    vymax = 400;
-
     // Conecta o repositório ao frame
     ui->frameDesenho->setRepositorio(&repositorio);
 
@@ -240,42 +230,5 @@ void MainWindow::realizarTransformacao(Matriz transformacao) {
     }
 }
 
-QPoint MainWindow::transformarCoordenada(double x, double y) const {
-    double deltaWx = wxmax - wxmin;
-    double deltaWy = wymax - wymin;
 
-    // Proteção contra divisão por zero
-    if (deltaWx == 0.0) deltaWx = 1.0;
-    if (deltaWy == 0.0) deltaWy = 1.0;
-
-    double xn = (x - wxmin) / deltaWx;
-    double yn = (y - wymin) / deltaWy;
-
-    int xp = static_cast<int>(xn * (vxmax - vxmin) + vxmin);
-    int yp = static_cast<int>((1.0 - yn) * (vymax - vymin) + vymin);
-
-    return QPoint(xp, yp);
-}
-
-void MainWindow::on_windowParametrosAlterados() {
-    wxmin = ui->spinWxMin->value();
-    wymin = ui->spinWyMin->value();
-    wxmax = ui->spinWxMax->value();
-    wymax = ui->spinWyMax->value();
-    ui->frameDesenho->update();
-}
-
-void MainWindow::on_viewportParametrosAlterados() {
-    vxmin = ui->spinVxMin->value();
-    vymin = ui->spinVyMin->value();
-    vxmax = ui->spinVxMax->value();
-    vymax = ui->spinVyMax->value();
-    ui->frameDesenho->update();
-}
-
-void MainWindow::on_spinWxMin_valueChanged(double arg1)
-{
-    wxmin = ui->spinWxMin->value();
-    ui->frameDesenho->update();
-}
 

@@ -3,11 +3,8 @@
 #include <QPainter>
 #include <QPainterPath>
 
-FrameDesenho::FrameDesenho(QWidget* parent, MainWindow* mainWindow)
-    : QFrame(parent), repo(nullptr),
-    wxmin(-5), wymin(-5), wxmax(15), wymax(15),
-    vxmin(0), vymin(0), vxmax(400), vymax(400),
-    mainWindow(mainWindow) // <-- inicializa o ponteiro aqui!
+FrameDesenho::FrameDesenho(QWidget* parent)
+    : QFrame(parent), repo(nullptr)
 {
     setFrameShape(QFrame::Box);
     setLineWidth(10);
@@ -20,22 +17,6 @@ void FrameDesenho::setRepositorio(RepositorioObjetos* repo) {
     update();
 }
 
-void FrameDesenho::setWindow(double wxmin, double wymin, double wxmax, double wymax) {
-    this->wxmin = wxmin;
-    this->wymin = wymin;
-    this->wxmax = wxmax;
-    this->wymax = wymax;
-    update();
-}
-
-void FrameDesenho::setViewport(int vxmin, int vymin, int vxmax, int vymax) {
-    this->vxmin = vxmin;
-    this->vymin = vymin;
-    this->vxmax = vxmax;
-    this->vymax = vymax;
-    update();
-}
-
 void FrameDesenho::paintEvent(QPaintEvent* event) {
     QFrame::paintEvent(event);
     if (!repo) return;
@@ -43,8 +24,8 @@ void FrameDesenho::paintEvent(QPaintEvent* event) {
     QPainter p(this);
 
     for (const auto& obj : repo->obterTodos()) {
-        if (obj && mainWindow) {
-            obj->desenhar(p, mainWindow);  // <- agora está correto!
+        if (obj) {
+            obj->desenhar(p);
         }
     }
 }

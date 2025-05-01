@@ -12,7 +12,7 @@ public:
     ~Triangulo() override = default;
 
     // Sobreescrita das fuções dentro da classe ObjetoGrafico
-    void desenhar(QPainter& painter, MainWindow* mainWindow) const override;
+    void desenhar(QPainter& painter) const override;
     QString toString() const override;
 
     // Métodos de transformação

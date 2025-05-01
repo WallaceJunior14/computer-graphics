@@ -5,18 +5,14 @@
 Quadrado::Quadrado(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, const Ponto& ponto4, const QColor& cor)
     : ObjetoGrafico(cor), p1(ponto1), p2(ponto2), p3(ponto3), p4(ponto4), cor(cor) {}
 
-void Quadrado::desenhar(QPainter& painter, MainWindow* mainWindow) const {
+void Quadrado::desenhar(QPainter& painter) const {
     painter.setPen(getPen());
 
-    QPoint p1_ = mainWindow->transformarCoordenada(p1.getX(), p1.getY());
-    QPoint p2_ = mainWindow->transformarCoordenada(p2.getX(), p2.getY());
-    QPoint p3_ = mainWindow->transformarCoordenada(p3.getX(), p3.getY());
-    QPoint p4_ = mainWindow->transformarCoordenada(p4.getX(), p4.getY());
+    painter.drawLine(p1.getX(),p1.getY(),p3.getX(),p3.getY());
+    painter.drawLine(p3.getX(),p3.getY(),p2.getX(),p2.getY());
+    painter.drawLine(p2.getX(),p2.getY(),p4.getX(),p4.getY());
+    painter.drawLine(p4.getX(),p4.getY(),p1.getX(),p1.getY());
 
-    painter.drawLine(p1_, p2_);
-    painter.drawLine(p2_, p3_);
-    painter.drawLine(p3_, p4_);
-    painter.drawLine(p4_, p1_);
 }
 
 QString Quadrado::toString() const {

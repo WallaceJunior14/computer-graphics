@@ -14,7 +14,7 @@ public:
     Ponto(double x, double y, QColor cor); // Sobrecarga para compatibilidade 2D (z=0)
 
     // Sobreescrita das funções dentro da classe ObjetoGrafico
-    void desenhar(QPainter& painter, MainWindow* mainWindow) const override;
+    void desenhar(QPainter& painter) const override;
     QString toString() const override;
 
     // Getters e Setters

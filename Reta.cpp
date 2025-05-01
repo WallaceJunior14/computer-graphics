@@ -5,13 +5,9 @@
 Reta::Reta(const Ponto& ponto1, const Ponto& ponto2, const QColor& cor)
     :ObjetoGrafico(cor), p1(ponto1), p2(ponto2) {}
 
-void Reta::desenhar(QPainter& painter, MainWindow* mainWindow) const {
+void Reta::desenhar(QPainter& painter) const {
     painter.setPen(getPen());
-
-    QPoint p1_ = mainWindow->transformarCoordenada(p1.getX(), p1.getY());
-    QPoint p2_ = mainWindow->transformarCoordenada(p2.getX(), p2.getY());
-
-    painter.drawLine(p1_, p2_);
+    painter.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
 }
 
 QString Reta::toString() const {

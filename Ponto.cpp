@@ -17,11 +17,10 @@ Ponto::Ponto(double x, double y, QColor cor)
     // Chama o construtor 3D com z=0
 }
 
-void Ponto::desenhar(QPainter& painter, MainWindow* mainWindow) const {
+void Ponto::desenhar(QPainter& painter) const {
     painter.setPen(getPen());
 
-    QPoint p_ = mainWindow->transformarCoordenada(getX(), getY());
-    painter.drawPoint(p_);
+    painter.drawPoint(getX(), getY());
 }
 
 QString Ponto::toString() const {
