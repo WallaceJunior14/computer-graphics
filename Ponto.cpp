@@ -103,6 +103,8 @@ void Ponto::aplicarTransformacao(const Matriz& transformacao, const Ponto& centr
     }
 }
 
+
+
 void Ponto::normalizar() {
     // Obtém o índice do componente homogêneo (última linha)
     int homIndex = getLinhas() - 1;

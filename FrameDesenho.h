@@ -23,12 +23,18 @@ public:
 
     // Setters
     void setRepositorio(RepositorioObjetos* repo);
+    void setWindowSCN(double minX, double minY, double maxX, double maxY);
+    void setViewportSCN(double minX, double minY, double maxX, double maxY);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
 
 private:
     RepositorioObjetos* repo;
+    QRectF windowSCN;
+    QRectF viewportSCN;
+
+    QPointF transformarParaViewport(const QPointF& pontoSCN) const;
 };
 
 #endif // FRAMEDESENHO_H

@@ -23,11 +23,42 @@ MainWindow::MainWindow(QWidget *parent)
     // Ajusta os campos baseado na primeira forma
     atualizarCamposForma(ui->comboFormas->itemText(0));
 
+    // Inicializa os valores da Window e Viewport SCN com [0, 1] x [0, 1]
+    ui->spinWMinX->setValue(0.0);
+    ui->spinWMinY->setValue(0.0);
+    ui->spinWMaxX->setValue(1.0);
+    ui->spinWMaxY->setValue(1.0);
+    ui->spinVMinX->setValue(0.0);
+    ui->spinVMinY->setValue(0.0);
+    ui->spinVMaxX->setValue(1.0);
+    ui->spinVMaxY->setValue(1.0);
+
+    // Conecta os sinais dos combos e botões aos seus respectivos slots
     connect(ui->comboFormas, &QComboBox::currentTextChanged,
             this, &MainWindow::atualizarCamposForma);
 
     connect(ui->cbDisplayFile, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::on_cbDisplayFile_currentIndexChanged);
+
+    // Conecta os sinais dos SpinBoxes da Window SCN aos slots
+    connect(ui->spinWMinX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, &MainWindow::on_spinWMinX_valueChanged);
+    connect(ui->spinWMinY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, &MainWindow::on_spinWMinY_valueChanged);
+    connect(ui->spinWMaxX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, &MainWindow::on_spinWMaxX_valueChanged);
+    connect(ui->spinWMaxY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, &MainWindow::on_spinWMaxY_valueChanged);
+
+    // Conecta os sinais dos SpinBoxes da Viewport SCN aos slots
+    connect(ui->spinVMinX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, &MainWindow::on_spinVMinX_valueChanged);
+    connect(ui->spinVMinY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, &MainWindow::on_spinVMinY_valueChanged);
+    connect(ui->spinVMaxX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, &MainWindow::on_spinVMaxX_valueChanged);
+    connect(ui->spinVMaxY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, &MainWindow::on_spinVMaxY_valueChanged);
 }
 
 MainWindow::~MainWindow() {
@@ -219,16 +250,61 @@ void MainWindow::realizarTransformacao(Matriz transformacao) {
 
     if (auto* ponto = dynamic_cast<Ponto*>(forma.get())) {
         ponto->aplicarTransformacao(transformacao, *ponto);
+        ponto->marcarTransformadoModelo();
+        ponto->resetarTransformadoViewport();
     } else if (auto* reta = dynamic_cast<Reta*>(forma.get())) {
         reta->aplicarTransformacao(transformacao);
+        reta->marcarTransformadoModelo();
+        reta->resetarTransformadoViewport();
     } else if (auto* quadrado = dynamic_cast<Quadrado*>(forma.get())) {
         quadrado->aplicarTransformacao(transformacao);
+        quadrado->marcarTransformadoModelo();
+        quadrado->resetarTransformadoViewport();
     } else if (auto* triangulo = dynamic_cast<Triangulo*>(forma.get())) {
         triangulo->aplicarTransformacao(transformacao);
+        triangulo->marcarTransformadoModelo();
+        triangulo->resetarTransformadoViewport();
     } else if (auto* circunferencia = dynamic_cast<Circunferencia*>(forma.get())) {
         circunferencia->aplicarTransformacao(transformacao);
+        circunferencia->marcarTransformadoModelo();
+        circunferencia->resetarTransformadoViewport();
     }
 }
 
+void MainWindow::on_btnChangeWindow_clicked()
+{
+    // Este slot não é mais necessário, pois os valores são capturados diretamente pelos valueChanged signals.
+    // Remova este método se não tiver outra lógica associada a ele.
+}
 
+void MainWindow::on_spinWMinX_valueChanged(double arg1) {
+    ui->frameDesenho->setWindowSCN(arg1, ui->spinWMinY->value(), ui->spinWMaxX->value(), ui->spinWMaxY->value());
+}
 
+void MainWindow::on_spinWMinY_valueChanged(double arg1) {
+    ui->frameDesenho->setWindowSCN(ui->spinWMinX->value(), arg1, ui->spinWMaxX->value(), ui->spinWMaxY->value());
+}
+
+void MainWindow::on_spinWMaxX_valueChanged(double arg1) {
+    ui->frameDesenho->setWindowSCN(ui->spinWMinX->value(), ui->spinWMinY->value(), arg1, ui->spinWMaxY->value());
+}
+
+void MainWindow::on_spinWMaxY_valueChanged(double arg1) {
+    ui->frameDesenho->setWindowSCN(ui->spinWMinX->value(), ui->spinWMinY->value(), ui->spinWMaxX->value(), arg1);
+}
+
+void MainWindow::on_spinVMinX_valueChanged(double arg1) {
+    ui->frameDesenho->setViewportSCN(arg1, ui->spinVMinY->value(), ui->spinVMaxX->value(), ui->spinVMaxY->value());
+}
+
+void MainWindow::on_spinVMinY_valueChanged(double arg1) {
+    ui->frameDesenho->setViewportSCN(ui->spinVMinX->value(), arg1, ui->spinVMaxX->value(), ui->spinVMaxY->value());
+}
+
+void MainWindow::on_spinVMaxX_valueChanged(double arg1) {
+    ui->frameDesenho->setViewportSCN(ui->spinVMinX->value(), ui->spinVMinY->value(), arg1, ui->spinVMaxY->value());
+}
+
+void MainWindow::on_spinVMaxY_valueChanged(double arg1) {
+    ui->frameDesenho->setViewportSCN(ui->spinVMinX->value(), ui->spinVMinY->value(), ui->spinVMaxX->value(), arg1);
+}

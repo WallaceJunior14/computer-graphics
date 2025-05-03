@@ -14,6 +14,7 @@ public:
     // Função para desenhar
     void desenhar(QPainter& painter) const override;
 
+
     // Transformações e verificação
     void aplicarTransformacao(const Matriz& transformacao);
     void normalizar();

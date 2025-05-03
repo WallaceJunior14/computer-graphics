@@ -7,6 +7,7 @@
 #include "Matriz.h"
 #include "RepositorioObjetos.h"
 #include "FrameDesenho.h"
+#include "Ponto.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,6 +39,15 @@ private slots:
     void on_cbDisplayFile_currentIndexChanged(int index);
     void on_btnExcluirForma_clicked();
     void on_btnTransformar_clicked();
+    void on_btnChangeWindow_clicked();
+    void on_spinWMinX_valueChanged(double arg1);
+    void on_spinWMinY_valueChanged(double arg1);
+    void on_spinWMaxX_valueChanged(double arg1);
+    void on_spinWMaxY_valueChanged(double arg1);
+    void on_spinVMinX_valueChanged(double arg1);
+    void on_spinVMinY_valueChanged(double arg1);
+    void on_spinVMaxX_valueChanged(double arg1);
+    void on_spinVMaxY_valueChanged(double arg1);
 };
 
 #endif // MAINWINDOW_H

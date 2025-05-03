@@ -12,6 +12,8 @@ protected:
     QColor cor;
     double tamanho;
     double raio;
+    bool transformadoModelo = false;    // Para rotação, escala, translação
+    bool transformadoViewport = false;  // Para window → viewport
 
 public:
     ObjetoGrafico(){};
@@ -23,6 +25,16 @@ public:
 
     // Função para pegar todas as informações do objeto;.
     virtual QString toString() const = 0;
+
+    // Para transformações de modelagem
+    void marcarTransformadoModelo() { transformadoModelo = true; }
+    void resetarTransformadoModelo() { transformadoModelo = false; }
+    bool foiTransformadoModelo() const { return transformadoModelo; }
+
+    // Para transformações de viewport
+    void marcarTransformadoViewport() { transformadoViewport = true; }
+    void resetarTransformadoViewport() { transformadoViewport = false; }
+    bool foiTransformadoViewport() const { return transformadoViewport; }
 
     // Getters e Setters
     virtual QColor getCor() const { return cor; }

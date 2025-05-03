@@ -15,6 +15,7 @@ public:
 
     // Sobreescrita das funções dentro da classe ObjetoGrafico
     void desenhar(QPainter& painter) const override;
+
     QString toString() const override;
 
     // Getters e Setters
