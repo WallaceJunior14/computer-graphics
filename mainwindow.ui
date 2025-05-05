@@ -29,6 +29,9 @@
     <property name="frameShape">
      <enum>QFrame::Shape::NoFrame</enum>
     </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Plain</enum>
+    </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -411,7 +414,7 @@
       <x>790</x>
       <y>510</y>
       <width>186</width>
-      <height>141</height>
+      <height>148</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_4">
@@ -506,7 +509,7 @@
       <x>790</x>
       <y>360</y>
       <width>186</width>
-      <height>141</height>
+      <height>148</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_5">
@@ -602,7 +605,7 @@
      <x>0</x>
      <y>0</y>
      <width>1014</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
