@@ -113,6 +113,12 @@ void FrameDesenho::adicionarForma(const QString& tipo, double x1, double y1, dou
 
     ObjetoGrafico* objeto = nullptr;
 
+    auto& objetos = repo->obterTodos();
+    if(objetos.size() == 0){
+        ObjetoGrafico* window = FormaFactory::instance().criarComplexa("Quadrado", 0, 0, 10, 10, "#00ff00");
+        repo->adicionar(std::unique_ptr<ObjetoGrafico>(window));
+    }
+
     if (tipo == "Ponto") {
         objeto = FormaFactory::instance().criarSimples(tipo, x1, y1, cor);
     } else if (tipo == "Reta" || tipo == "Quadrado") {
