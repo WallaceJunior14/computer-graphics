@@ -17,7 +17,7 @@ void Quadrado::desenhar(QPainter& painter) const {
 
 QString Quadrado::toString() const {
     if(this->nome.size() > 0){
-        return QString("Mundo: P1(%1, %2), P2(%3, %4), Cor: %6")
+        return QString("Window: P1(%1, %2), P2(%3, %4), Cor: %6")
         .arg(p1.getX())
             .arg(p1.getY())
             .arg(p2.getX())
