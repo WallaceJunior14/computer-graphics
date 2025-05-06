@@ -8,7 +8,7 @@
 class Quadrado : public ObjetoGrafico {
 public:
     // Construtor
-    Quadrado(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, const Ponto& ponto4, const QColor& cor, const QString& nome);
+    Quadrado(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, const Ponto& ponto4, const QColor& cor);
     ~Quadrado() override = default;
 
     // Função para desenhar

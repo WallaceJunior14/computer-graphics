@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
         Ponto p2(x2, y2, cor);
         Ponto p3(x1, y2, cor);
         Ponto p4(x2, y1, cor);
-        return new Quadrado(p1, p2, p3, p4, cor,"Quadrado");
+        return new Quadrado(p1, p2, p3, p4, cor);
     });
 
     FormaFactory::instance().registrarCircunferencia("Circunferencia", [](double x1, double y1, double raio, const QColor& cor) {

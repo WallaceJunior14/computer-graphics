@@ -6,7 +6,7 @@
 
 FrameDesenho::FrameDesenho(QWidget* parent)
     : QFrame(parent), repo(nullptr),
-    windowSCN(0.0, 0.0, 1.0, 1.0), // Inicializa com a janela SCN padrão [0, 1] x [0, 1]
+    //windowSCN(0.0, 0.0, 1.0, 1.0), // Inicializa com a janela SCN padrão [0, 1] x [0, 1]
     viewportSCN(0.0, 0.0, 1.0, 1.0) // Inicializa com a viewport SCN padrão [0, 1] x [0, 1]
 {
     setFrameShape(QFrame::Box);
@@ -74,7 +74,7 @@ void FrameDesenho::paintEvent(QPaintEvent* event) {
                 QPointF p4Viewport = transformarParaViewport(p4SCN);
                 p.setPen(obj->getPen());
                 path.moveTo(p1Viewport);
-                path.lineTo(p3Viewport); // Mantendo a ordem original do seu código
+                path.lineTo(p3Viewport);
                 path.lineTo(p2Viewport);
                 path.lineTo(p4Viewport);
                 path.lineTo(p1Viewport);
@@ -115,8 +115,15 @@ void FrameDesenho::adicionarForma(const QString& tipo, double x1, double y1, dou
 
     auto& objetos = repo->obterTodos();
     if(objetos.size() == 0){
-        ObjetoGrafico* window = FormaFactory::instance().criarComplexa("Quadrado", 0, 0, 10, 10, "#00ff00");
+        ObjetoGrafico* window = FormaFactory::instance().criarComplexa("Quadrado", 0, 0, 100, 100, "#00000000");
         repo->adicionar(std::unique_ptr<ObjetoGrafico>(window));
+        auto& obj = objetos[0];
+        auto quadrado = dynamic_cast<Quadrado*>(obj.get());
+        quadrado->nome = "Window";
+        setWindowSCN(quadrado->getP1().getX(),
+                  quadrado->getP2().getY(),
+                  quadrado->getP2().getX(),
+                  quadrado->getP1().getY());
     }
 
     if (tipo == "Ponto") {

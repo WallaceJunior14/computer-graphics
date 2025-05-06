@@ -6,6 +6,7 @@
 #include <QColorDialog>
 #include <QMessageBox>
 #include <QDebug>
+#include <algorithm>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -23,42 +24,12 @@ MainWindow::MainWindow(QWidget *parent)
     // Ajusta os campos baseado na primeira forma
     atualizarCamposForma(ui->comboFormas->itemText(0));
 
-    // Inicializa os valores da Window e Viewport SCN com [0, 1] x [0, 1]
-    ui->spinWMinX->setValue(0.0);
-    ui->spinWMinY->setValue(0.0);
-    ui->spinWMaxX->setValue(1.0);
-    ui->spinWMaxY->setValue(1.0);
-    ui->spinVMinX->setValue(0.0);
-    ui->spinVMinY->setValue(0.0);
-    ui->spinVMaxX->setValue(1.0);
-    ui->spinVMaxY->setValue(1.0);
-
     // Conecta os sinais dos combos e botões aos seus respectivos slots
     connect(ui->comboFormas, &QComboBox::currentTextChanged,
             this, &MainWindow::atualizarCamposForma);
 
     connect(ui->cbDisplayFile, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::on_cbDisplayFile_currentIndexChanged);
-
-    // Conecta os sinais dos SpinBoxes da Window SCN aos slots
-    connect(ui->spinWMinX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &MainWindow::on_spinWMinX_valueChanged);
-    connect(ui->spinWMinY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &MainWindow::on_spinWMinY_valueChanged);
-    connect(ui->spinWMaxX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &MainWindow::on_spinWMaxX_valueChanged);
-    connect(ui->spinWMaxY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &MainWindow::on_spinWMaxY_valueChanged);
-
-    // Conecta os sinais dos SpinBoxes da Viewport SCN aos slots
-    connect(ui->spinVMinX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &MainWindow::on_spinVMinX_valueChanged);
-    connect(ui->spinVMinY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &MainWindow::on_spinVMinY_valueChanged);
-    connect(ui->spinVMaxX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &MainWindow::on_spinVMaxX_valueChanged);
-    connect(ui->spinVMaxY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &MainWindow::on_spinVMaxY_valueChanged);
 }
 
 MainWindow::~MainWindow() {
@@ -237,6 +208,37 @@ void MainWindow::on_btnTransformar_clicked() {
 
     realizarTransformacao(transformacao);
     atualizarCBDisplayFile();
+
+    if(indiceSelecionado == 0){
+        auto& vetor = repositorio.obterTodos().at(0);
+        auto* quadrado = dynamic_cast<Quadrado*>(vetor.get());
+
+        /*double minX = std::min({quadrado->getP1().getX(),
+                                quadrado->getP2().getX(),
+                                quadrado->getP3().getX(),
+                                quadrado->getP4().getX()});
+
+        double maxX = std::max({quadrado->getP1().getX(),
+                    quadrado->getP2().getX(),
+                    quadrado->getP3().getX(),
+                    quadrado->getP4().getX()});
+
+        double minY = std::min({quadrado->getP1().getY(),
+                                quadrado->getP2().getY(),
+                                quadrado->getP3().getY(),
+                                quadrado->getP4().getY()});
+
+        double maxY = std::max({quadrado->getP1().getY(),
+                                quadrado->getP2().getY(),
+                                quadrado->getP3().getY(),
+                                quadrado->getP4().getY()});*/
+
+        ui->frameDesenho->setWindowSCN(quadrado->getP1().getX(),
+                                       quadrado->getP2().getY(),
+                                       quadrado->getP2().getX(),
+                                       quadrado->getP1().getY());
+    }
+
     ui->frameDesenho->update();
     resetarSelecao();
 }
@@ -269,42 +271,4 @@ void MainWindow::realizarTransformacao(Matriz transformacao) {
         circunferencia->marcarTransformadoModelo();
         circunferencia->resetarTransformadoViewport();
     }
-}
-
-void MainWindow::on_btnChangeWindow_clicked()
-{
-    // Este slot não é mais necessário, pois os valores são capturados diretamente pelos valueChanged signals.
-    // Remova este método se não tiver outra lógica associada a ele.
-}
-
-void MainWindow::on_spinWMinX_valueChanged(double arg1) {
-    ui->frameDesenho->setWindowSCN(arg1, ui->spinWMinY->value(), ui->spinWMaxX->value(), ui->spinWMaxY->value());
-}
-
-void MainWindow::on_spinWMinY_valueChanged(double arg1) {
-    ui->frameDesenho->setWindowSCN(ui->spinWMinX->value(), arg1, ui->spinWMaxX->value(), ui->spinWMaxY->value());
-}
-
-void MainWindow::on_spinWMaxX_valueChanged(double arg1) {
-    ui->frameDesenho->setWindowSCN(ui->spinWMinX->value(), ui->spinWMinY->value(), arg1, ui->spinWMaxY->value());
-}
-
-void MainWindow::on_spinWMaxY_valueChanged(double arg1) {
-    ui->frameDesenho->setWindowSCN(ui->spinWMinX->value(), ui->spinWMinY->value(), ui->spinWMaxX->value(), arg1);
-}
-
-void MainWindow::on_spinVMinX_valueChanged(double arg1) {
-    ui->frameDesenho->setViewportSCN(arg1, ui->spinVMinY->value(), ui->spinVMaxX->value(), ui->spinVMaxY->value());
-}
-
-void MainWindow::on_spinVMinY_valueChanged(double arg1) {
-    ui->frameDesenho->setViewportSCN(ui->spinVMinX->value(), arg1, ui->spinVMaxX->value(), ui->spinVMaxY->value());
-}
-
-void MainWindow::on_spinVMaxX_valueChanged(double arg1) {
-    ui->frameDesenho->setViewportSCN(ui->spinVMinX->value(), ui->spinVMinY->value(), arg1, ui->spinVMaxY->value());
-}
-
-void MainWindow::on_spinVMaxY_valueChanged(double arg1) {
-    ui->frameDesenho->setViewportSCN(ui->spinVMinX->value(), ui->spinVMinY->value(), ui->spinVMaxX->value(), arg1);
 }

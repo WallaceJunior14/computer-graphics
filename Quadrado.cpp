@@ -2,7 +2,7 @@
 #include "mainwindow.h"
 #include <QDebug>
 
-Quadrado::Quadrado(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, const Ponto& ponto4, const QColor& cor, const QString& nome)
+Quadrado::Quadrado(const Ponto& ponto1, const Ponto& ponto2, const Ponto& ponto3, const Ponto& ponto4, const QColor& cor)
     : ObjetoGrafico(cor), p1(ponto1), p2(ponto2), p3(ponto3), p4(ponto4), cor(cor) {}
 
 void Quadrado::desenhar(QPainter& painter) const {
@@ -17,7 +17,7 @@ void Quadrado::desenhar(QPainter& painter) const {
 
 QString Quadrado::toString() const {
     if(this->nome.size() > 0){
-        return QString("Mundo: P1(%1, %2), P2(%3, %4), Cor: %6")
+        return QString("Window: P1(%1, %2), P2(%3, %4), Cor: %6")
         .arg(p1.getX())
             .arg(p1.getY())
             .arg(p2.getX())
